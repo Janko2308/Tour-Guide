@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_Planner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Tour Planner" Height="450" Width="800">
+   
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <Border
@@ -16,19 +17,26 @@
                HorizontalAlignment="Left"  
                VerticalAlignment="Top"  
                />
-            <Label DockPanel.Dock="Left" Content="Tour Planner" Margin="0 0 0 0"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
-            <Button DockPanel.Dock="Left" Content="File" Height="25" Width="100" />
-            <Button DockPanel.Dock="Left" Content="Edit" Height="25" Width="100" />
-            <Button DockPanel.Dock="Left" Content="Options" Height="25" Width="100" />
-            <Button DockPanel.Dock="Right" Content="Help" Height="25" Width="100" />
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header=""/>
+                    <MenuItem Header=""/>
+                    <MenuItem Header=""/>
+                </MenuItem>
+            <MenuItem Header="Edit"/>
+            <MenuItem Header="Options"/>
+            <MenuItem Header="Help" />
+            </Menu>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top">
-            <TextBox Height="25" Width="800" Text="Search" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Button Command="{Binding Path = SearchCommand}" DockPanel.Dock="Right" Content="Search"/>
+            <TextBox Text="{Binding Path = SearchText}" Height="25" Width="800" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <!--Search icon -->
+            
         </DockPanel>
-        <!--
+        
         <Grid>
             <TextBox  Width="250"  VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5"/>
             <TextBlock IsHitTestVisible="False" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
@@ -44,7 +52,7 @@
                 </TextBlock.Style>
             </TextBlock>
         </Grid>
-        -->
+        
         <DockPanel DockPanel.Dock="Left">
             
         </DockPanel>
