@@ -1,4 +1,4 @@
-﻿<Window x:Class="Tour_Planner.MainWindow"
+﻿<Window x:Class="Tour_Planner.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -31,7 +31,7 @@
             </Menu>
         </DockPanel>
         <!--here addsearchbar-->
-        <local:AddSearchBar x:Name="AddAddSearchBar"/>
+        <local:AddSearchBar x:Name="AddSearchBar"/>
         <Grid>
             <TextBox  Width="250"  VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5"/>
             <TextBlock IsHitTestVisible="False" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">

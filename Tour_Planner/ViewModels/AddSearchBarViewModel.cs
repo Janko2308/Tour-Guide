@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Tour_Planner.ViewModels {
-    internal class AddSearchBarViewModel {
+    public class AddSearchBarViewModel {
     }
 }

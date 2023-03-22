@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Tour_Planner.ViewModels;
+using Tour_Planner.Views;
 
 namespace Tour_Planner
 {
@@ -17,12 +18,13 @@ namespace Tour_Planner
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             // create all viewmodels (and inject them later)
-            var mainViewModel = new MainViewModel();
+            var addSearchBarModel = new AddSearchBarViewModel();
 
 
             var wnd = new MainWindow
             {
-                DataContext = mainViewModel
+                DataContext = new MainViewModel(addSearchBarModel),
+                AddSearchBar = { DataContext = addSearchBarModel }
             };
             wnd.Show();
         }
