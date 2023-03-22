@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Tour_Planner"
+        xmlns:local="clr-namespace:Tour_Planner.Views"
         mc:Ignorable="d"
         Title="Tour Planner" Height="450" Width="800">
    
@@ -30,13 +30,8 @@
             <MenuItem Header="Help" />
             </Menu>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Top">
-            <Button Command="{Binding Path = SearchCommand}" DockPanel.Dock="Right" Content="Search"/>
-            <TextBox Text="{Binding Path = SearchText}" Height="25" Width="800" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <!--Search icon -->
-            
-        </DockPanel>
-        
+        <!--here addsearchbar-->
+        <local:AddSearchBar x:Name="AddAddSearchBar"/>
         <Grid>
             <TextBox  Width="250"  VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5"/>
             <TextBlock IsHitTestVisible="False" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">

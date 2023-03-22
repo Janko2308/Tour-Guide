@@ -13,15 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Tour_Planner.Views
-{
+namespace Tour_Planner.Views {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddSearchBar.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
+    public partial class AddSearchBar : UserControl {
+        public AddSearchBar() {
             InitializeComponent();
         }
     }
