@@ -25,15 +25,18 @@
                     <MenuItem Header=""/>
                     <MenuItem Header=""/>
                 </MenuItem>
-            <MenuItem Header="Edit"/>
-            <MenuItem Header="Options"/>
-            <MenuItem Header="Help" />
+                <MenuItem Header="Edit"/>
+                <MenuItem Header="Options"/>
+                <MenuItem Header="Help" />
             </Menu>
+            <local:AddSearchBar x:Name="AddSearchBar"/>
         </DockPanel>
-        <!--here addsearchbar-->
-        <local:AddSearchBar x:Name="AddSearchBar"/>
+        <DockPanel DockPanel.Dock="Top">
+            <local:AddTourMgmtBar x:Name="AddTourMgmtBar" />
+            <!-- <local:AddTourMenu x:Name="AddTourMenu" /> -->
+        </DockPanel>
         <Grid>
-            <TextBox  Width="250"  VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5"/>
+            <TextBox Width="250"  VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5"/>
             <TextBlock IsHitTestVisible="False" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
