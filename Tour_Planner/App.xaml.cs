@@ -19,14 +19,14 @@ namespace Tour_Planner
         {
             // create all viewmodels (and inject them later)
             var addSearchBarModel = new AddSearchBarViewModel();
-            var addTourMgmtBarModel = new AddTourMgmtBarViewModel();
+            var addTourManagementViewModel = new AddTourManagementViewModel();
 
 
             var wnd = new MainWindow
             {
-                DataContext = new MainViewModel(addSearchBarModel),
+                DataContext = new MainViewModel(addSearchBarModel, addTourManagementViewModel),
                 AddSearchBar = { DataContext = addSearchBarModel },
-                AddTourMgmtBar = { DataContext = addTourMgmtBarModel }
+                AddTourManagement = addTourManagementViewModel
             };
             wnd.Show();
         }

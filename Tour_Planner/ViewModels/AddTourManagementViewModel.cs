@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tour_Planner.ViewModels
 {
-    class AddTourMgmtBarViewModel
+    class AddTourManagementViewModel
     {
     }
 }

@@ -16,13 +16,14 @@ using System.Windows.Shapes;
 namespace Tour_Planner.Views
 {
     /// <summary>
-    /// Interaction logic for AddTourMgmtBar.xaml
+    /// Interaction logic for TourManagement.xaml
     /// </summary>
-    public partial class AddTourMgmtBar : UserControl
+    public partial class TourManagement : UserControl
     {
-        public AddTourMgmtBar()
+        public TourManagement()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
     }
 }

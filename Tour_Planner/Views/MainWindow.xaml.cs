@@ -20,9 +20,13 @@ namespace Tour_Planner.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        public object AddTourManagement { get; internal set; }
+
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        public object AddTourMgmtBar { get; internal set; }
     }
 }

@@ -12,7 +12,8 @@ namespace Tour_Planner.ViewModels
     class MainViewModel : INotifyPropertyChanged
     {
         private AddSearchBarViewModel addSearchBarVM;
-        
+        private AddTourManagementViewModel addTourManagementVM;
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private string searchText = "banana";
@@ -27,9 +28,10 @@ namespace Tour_Planner.ViewModels
             }
         }
 
-        public MainViewModel(AddSearchBarViewModel asbVM)
+        public MainViewModel(AddSearchBarViewModel asbVM, AddTourManagementViewModel atmVM)
         {
             this.addSearchBarVM = asbVM;
+            this.addTourManagementVM = atmVM;
             SearchCommand = new RelayCommand(param => Debug.Print(searchText));
         }
 
