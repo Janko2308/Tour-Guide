@@ -26,7 +26,7 @@ namespace Tour_Planner
             {
                 DataContext = new MainViewModel(addSearchBarModel, addTourManagementViewModel),
                 AddSearchBar = { DataContext = addSearchBarModel },
-                AddTourManagement = addTourManagementViewModel
+                AddTourManagement = { DataContext = addTourManagementViewModel }
             };
             wnd.Show();
         }
