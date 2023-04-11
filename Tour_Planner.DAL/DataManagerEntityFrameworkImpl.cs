@@ -8,15 +8,11 @@ using Tour_Planner.Model;
 
 namespace Tour_Planner.DAL {
     public class DataManagerEntityFrameworkImpl : IDataManager {
-        private readonly TaskDbContext context;
+        private readonly TourDbContext context = new TourDbContext();
 
         public DataManagerEntityFrameworkImpl() {
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-            
-            // INSTEAD OF IN TASK ITEM ITSELF
-            //context.TaskItems.Add(new TaskItem() { Text = "Work on Self-Study, Created....
-            //context.TaskItems.Add(new TaskItem()....
         }
         
         public void AddTour(TourItem t) {

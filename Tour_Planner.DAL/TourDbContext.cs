@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Tour_Planner.DAL {
-    public class TaskDbContext : DbContext {
+    public class TourDbContext : DbContext {
         public DbSet<TourItem> TourItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=taskplanner;Username=postgres;Password=changeme");
+            optionsBuilder.UseNpgsql("Host=localhost;Database=tourplanner;Username=postgres;Password=changeme");
         }
     }
 }
