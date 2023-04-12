@@ -7,4 +7,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tour_Planner.BL\Tour_Planner.BL.csproj" />
+    <ProjectReference Include="..\Tour_Planner.DAL\Tour_Planner.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

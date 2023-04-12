@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Tour_Planner.DAL;
+using Tour_Planner.BL;
 using Tour_Planner.ViewModels;
 using Tour_Planner.Views;
 
@@ -21,10 +23,13 @@ namespace Tour_Planner
             var addSearchBarModel = new AddSearchBarViewModel();
             var addTourMgmtBarModel = new AddTourMgmtBarViewModel();
 
+            var dal = new DataManagerEntityFrameworkImpl();
+            var bl = new TourManager(dal);
+
 
             var wnd = new MainWindow
             {
-                DataContext = new MainViewModel(addSearchBarModel),
+                DataContext = new MainViewModel(addSearchBarModel, bl),
                 AddSearchBar = { DataContext = addSearchBarModel },
                 AddTourMgmtBar = { DataContext = addTourMgmtBarModel }
             };

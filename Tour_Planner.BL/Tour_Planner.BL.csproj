@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tour_Planner.DAL\Tour_Planner.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
