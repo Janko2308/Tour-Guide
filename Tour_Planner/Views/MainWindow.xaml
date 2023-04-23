@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Tour_Planner.Views"
         mc:Ignorable="d"
         Title="Tour Planner" Height="450" Width="800">
-   
+
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <Border
@@ -21,9 +21,8 @@
         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
-                    <MenuItem Header=""/>
-                    <MenuItem Header=""/>
-                    <MenuItem Header=""/>
+                    <MenuItem Header="Load"/>
+                    <MenuItem Header="Save"/>
                 </MenuItem>
                 <MenuItem Header="Edit"/>
                 <MenuItem Header="Options"/>
@@ -31,16 +30,30 @@
             </Menu>
             <local:AddSearchBar x:Name="AddSearchBar"/>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Top">
-            <local:AddTourMgmtBar x:Name="AddTourMgmtBar" />
-            <!-- <local:AddTourMenu x:Name="AddTourMenu" /> -->
-        </DockPanel>
-        <Grid/>
-
-        <DockPanel DockPanel.Dock="Left">
-            <ListView ItemsSource="{Binding Path=Tours}">
-                
-            </ListView>
-        </DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="240*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ListView Grid.Column="0" Grid.Row="0" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
+                <ListView Grid.Row="0" d:ItemsSource="{d:SampleData ItemCount=5}" />
+                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
+                <ListView Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" />
+            </Grid>
+        </Grid>
     </DockPanel>
 </Window>

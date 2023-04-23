@@ -30,8 +30,7 @@ namespace Tour_Planner
             var wnd = new MainWindow
             {
                 DataContext = new MainViewModel(addSearchBarModel, bl),
-                AddSearchBar = { DataContext = addSearchBarModel },
-                AddTourMgmtBar = { DataContext = addTourMgmtBarModel }
+                AddSearchBar = { DataContext = addSearchBarModel }
             };
             wnd.Show();
         }
