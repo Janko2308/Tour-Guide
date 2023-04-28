@@ -6,5 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tour_Planner.ViewModels {
     public class AddSearchBarViewModel {
+
+        private string searchText = "banana";
     }
 }

@@ -17,8 +17,6 @@ namespace Tour_Planner.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private string searchText = "banana";
-
         public string SearchText {
             get => searchText;
             set {
