@@ -14,8 +14,11 @@ namespace Tour_Planner.ViewModels
 {
     class MainViewModel : INotifyPropertyChanged {
         private AddSearchBarViewModel addSearchBarVM;
+        private AddNewTourViewModel addNewTourVM;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        private string searchText = "temporary, to delete";
 
         public string SearchText {
             get => searchText;
@@ -25,10 +28,13 @@ namespace Tour_Planner.ViewModels
             }
         }
 
-        public MainViewModel(AddSearchBarViewModel asbVM, TourManager bl) {
+        public MainViewModel(AddSearchBarViewModel asbVM, AddNewTourViewModel antVM, TourManager bl) {
             this.addSearchBarVM = asbVM;
+            this.addNewTourVM = antVM;
             this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
             SearchCommand = new RelayCommand(param => Debug.Print(searchText));
+
+            ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
         }
 
 
@@ -36,6 +42,8 @@ namespace Tour_Planner.ViewModels
             get;
 
         }
+
+        public ICommand ExecuteCommandOpenNewTour { get; }
 
         public ObservableCollection<TourItem> Tours { get; set; }
     }

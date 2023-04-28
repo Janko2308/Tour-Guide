@@ -37,9 +37,15 @@
                 <ColumnDefinition Width="240*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition Height="780*"/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
-            <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=Tours}"/>
+            <Button Grid.Column="0" Grid.Row="1" Content="_Add new Tour" Width="100" Command="{Binding Path=ExecuteCommandOpenNewTour}"></Button>
+            <TabControl>
+                <TabItem Header="Tours">
+                    <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=Tours}"/>
+                </TabItem>
+            </TabControl>
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
             <Grid Grid.Column="2">
                 <Grid.ColumnDefinitions>
@@ -50,9 +56,24 @@
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
-                <ListView Grid.Row="0" d:ItemsSource="{d:SampleData ItemCount=5}" />
+                <TabControl Grid.Row="0">
+                    <TabItem Header="General">
+                        <!--here goes info ab the tour-->
+                        <ListView Grid.Row="0" d:ItemsSource="{d:SampleData ItemCount=5}" />
+                    </TabItem>
+                    <TabItem Header="Route">
+                        <!--here goes a map-->
+                    </TabItem>
+                    <TabItem Header="Misc">
+                        <!--no ideas yet-->
+                    </TabItem>
+                </TabControl>
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
-                <ListView Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" />
+                <TabControl Grid.Row="2">
+                    <TabItem Header="Tour Logs">
+                        <ListView Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" />
+                    </TabItem>
+                </TabControl>
             </Grid>
         </Grid>
     </DockPanel>
