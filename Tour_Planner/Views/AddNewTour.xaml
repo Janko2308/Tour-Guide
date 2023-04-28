@@ -5,8 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_Planner.Views"
         mc:Ignorable="d"
-        Title="AddNewTour" Height="450" Width="800">
+        Title="Add new tour" Height="450" Width="800">
+    <!--Name, Description, From, To, TransportType, Distance, EstimatedTime, TourInfo-->
     <Grid>
-        <Label>Sample Text</Label>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Tour Information" FontSize="24" HorizontalAlignment="Center"/>
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Name="txtName"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Description:"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" Name="txtDescription"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="From:"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="10,0,0,0" Name="txtFrom"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="To:"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="txtTo"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" Margin="10,0,0,0" Name="cmbTransportType">
+                <ComboBoxItem Content="Fastest"/>
+                <ComboBoxItem Content="Bus"/>
+                <ComboBoxItem Content="Train"/>
+                <ComboBoxItem Content="Plane"/>
+            </ComboBox>
+            <Label Grid.Row="5" Grid.Column="0" Content="Distance:"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="10,0,0,0" Name="txtDistance"/>
+            <Label Grid.Row="6" Grid.Column="0" Content="Estimated Time:"/>
+            <TextBox Grid.Row="6" Grid.Column="1" Margin="10,0,0,0" Name="txtEstimatedTime"/>
+            <Label Grid.Row="7" Grid.Column="0" Content="Tour Info:"/>
+            <TextBox Grid.Row="7" Grid.Column="1" Margin="10,0,0,0" Height="100" Name="txtTourInfo"/>
+            <!--Click="OnSubmitClicked"-->
+            <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94"/>
+        </Grid>
     </Grid>
 </Window>
