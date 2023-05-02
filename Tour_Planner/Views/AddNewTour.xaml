@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Tour_Planner.Views"
+        xmlns:viewmodels="clr-namespace:Tour_Planner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddNewTourViewModel}"
         mc:Ignorable="d"
         Title="Add new tour" Height="450" Width="800">
     <!--Name, Description, From, To, TransportType, Distance, EstimatedTime, TourInfo-->
@@ -30,28 +30,28 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Name="txtName"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Name="txtName" Text="{Binding Path=Tour.Name}"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Description:"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" Name="txtDescription"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" Name="txtDescription" Text="{Binding Path=Tour.Description}"/>
             <Label Grid.Row="2" Grid.Column="0" Content="From:"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="10,0,0,0" Name="txtFrom"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="10,0,0,0" Name="txtFrom" Text="{Binding Path=Tour.From}"/>
             <Label Grid.Row="3" Grid.Column="0" Content="To:"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="txtTo"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="txtTo" Text="{Binding Path=Tour.To}"/>
             <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:"/>
-            <ComboBox Grid.Row="4" Grid.Column="1" Margin="10,0,0,0" Name="cmbTransportType">
+            <ComboBox Grid.Row="4" Grid.Column="1" Margin="10,0,0,0" Name="cmbTransportType" Text="{Binding Path=Tour.TransportType}">
                 <ComboBoxItem Content="Fastest"/>
                 <ComboBoxItem Content="Bus"/>
                 <ComboBoxItem Content="Train"/>
                 <ComboBoxItem Content="Plane"/>
             </ComboBox>
             <Label Grid.Row="5" Grid.Column="0" Content="Distance:"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Margin="10,0,0,0" Name="txtDistance"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="10,0,0,0" Name="txtDistance" Text="{Binding Path=Tour.Distance}"/>
             <Label Grid.Row="6" Grid.Column="0" Content="Estimated Time:"/>
-            <TextBox Grid.Row="6" Grid.Column="1" Margin="10,0,0,0" Name="txtEstimatedTime"/>
+            <TextBox Grid.Row="6" Grid.Column="1" Margin="10,0,0,0" Name="txtEstimatedTime" Text="{Binding Path=Tour.EstimatedTime}"/>
             <Label Grid.Row="7" Grid.Column="0" Content="Tour Info:"/>
-            <TextBox Grid.Row="7" Grid.Column="1" Margin="10,0,0,0" Height="100" Name="txtTourInfo"/>
+            <TextBox Grid.Row="7" Grid.Column="1" Margin="10,0,0,0" Height="100" Name="txtTourInfo" Text="{Binding Path=Tour.TourInfo}"/>
             <!--Click="OnSubmitClicked"-->
-            <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94"/>
+            <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94" Command="{Binding Path=ExecuteCommandAdd}"/>
         </Grid>
     </Grid>
 </Window>

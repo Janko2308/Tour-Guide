@@ -12,7 +12,7 @@ using Tour_Planner.Model;
 
 namespace Tour_Planner.ViewModels
 {
-    class MainViewModel : INotifyPropertyChanged {
+    public class MainViewModel : INotifyPropertyChanged {
         private AddSearchBarViewModel addSearchBarVM;
         private AddNewTourViewModel addNewTourVM;
 

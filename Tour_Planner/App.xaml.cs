@@ -20,11 +20,11 @@ namespace Tour_Planner
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             // create all viewmodels (and inject them later)
-            var addSearchBarModel = new AddSearchBarViewModel();
-            var addNewTourModel = new AddNewTourViewModel();
-
             var dal = new DataManagerEntityFrameworkImpl();
             var bl = new TourManager(dal);
+
+            var addSearchBarModel = new AddSearchBarViewModel();
+            var addNewTourModel = new AddNewTourViewModel(bl);
 
 
             var wnd = new MainWindow

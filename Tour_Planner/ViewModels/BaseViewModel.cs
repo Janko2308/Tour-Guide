@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Tour_Planner.ViewModels
 {
-    class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
 
 
     {
