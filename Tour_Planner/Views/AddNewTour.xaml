@@ -51,7 +51,7 @@
             <Label Grid.Row="7" Grid.Column="0" Content="Tour Info:"/>
             <TextBox Grid.Row="7" Grid.Column="1" Margin="10,0,0,0" Height="100" Name="txtTourInfo" Text="{Binding Path=Tour.TourInfo}"/>
             <!--Click="OnSubmitClicked"-->
-            <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94" Command="{Binding Path=ExecuteCommandAdd}"/>
+            <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94" Command="{Binding ExecuteCommandAdd}"/>
         </Grid>
     </Grid>
 </Window>
