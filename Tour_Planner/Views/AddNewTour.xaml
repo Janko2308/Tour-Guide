@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:Tour_Planner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddNewTourViewModel}"
         mc:Ignorable="d"
-        Title="Add new tour" Height="450" Width="800">
+        Title="Add new tour" Height="300" Width="600">
     <!--Name, Description, From, To, TransportType, Distance, EstimatedTime, TourInfo-->
     <Grid>
         <Grid.RowDefinitions>
@@ -44,14 +44,8 @@
                 <ComboBoxItem Content="Train"/>
                 <ComboBoxItem Content="Plane"/>
             </ComboBox>
-            <Label Grid.Row="5" Grid.Column="0" Content="Distance:"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Margin="10,0,0,0" Name="txtDistance" Text="{Binding Path=Tour.Distance}"/>
-            <Label Grid.Row="6" Grid.Column="0" Content="Estimated Time:"/>
-            <TextBox Grid.Row="6" Grid.Column="1" Margin="10,0,0,0" Name="txtEstimatedTime" Text="{Binding Path=Tour.EstimatedTime}"/>
-            <Label Grid.Row="7" Grid.Column="0" Content="Tour Info:"/>
-            <TextBox Grid.Row="7" Grid.Column="1" Margin="10,0,0,0" Height="100" Name="txtTourInfo" Text="{Binding Path=Tour.TourInfo}"/>
             <!--Click="OnSubmitClicked"-->
-            <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94" Command="{Binding ExecuteCommandAdd}"/>
+            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94" Command="{Binding ExecuteCommandAdd}"/>
         </Grid>
     </Grid>
 </Window>

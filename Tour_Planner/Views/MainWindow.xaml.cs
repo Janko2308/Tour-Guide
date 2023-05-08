@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tour_Planner.Model;
 
 namespace Tour_Planner.Views
 {
@@ -20,9 +22,25 @@ namespace Tour_Planner.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private TourItem selectedTour = new();
+
+        public TourItem SelectedTour {
+            get => selectedTour;
+            set {
+                selectedTour = value;
+                Console.WriteLine("Changing");
+            }
+        }
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public void ChangeSelected(object sender, SelectionChangedEventArgs e) {
+            if (ToursView.SelectedItem == null) {
+                return;
+            }
+            SelectedTour = ToursView.SelectedItem as TourItem;
         }
     }
 }

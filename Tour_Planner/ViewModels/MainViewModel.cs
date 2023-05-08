@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Tour_Planner.BL;
 using Tour_Planner.Model;
@@ -40,11 +41,11 @@ namespace Tour_Planner.ViewModels
 
         public ICommand SearchCommand {
             get;
-
         }
 
         public ICommand ExecuteCommandOpenNewTour { get; }
 
         public ObservableCollection<TourItem> Tours { get; set; }
+
     }
 }
