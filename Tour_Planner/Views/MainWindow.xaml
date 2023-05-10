@@ -48,7 +48,7 @@
             <Button Grid.Column="0" Grid.Row="1" Content="_Add new Tour" Width="100" Command="{Binding Path=ExecuteCommandOpenNewTour}"></Button>
             <TabControl>
                 <TabItem Header="Tours">
-                    <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=Tours}" x:Name="ToursView" SelectionChanged="ChangeSelected">
+                    <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=Tours}" x:Name="ToursView" SelectedItem="{Binding Path=SelectedTour}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>
@@ -70,14 +70,28 @@
                 <TabControl Grid.Row="0">
                     <TabItem Header="General">
                         <!--here goes info ab the tour-->
-                        <ListView Grid.Row="0" d:ItemsSource="{d:SampleData ItemCount=5}" />
+                        <!--how to get the selected skill name-->
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=SelectedTour.Name, StringFormat='Name of the tour: {0}'}"></TextBlock>
+                            <TextBlock Text="{Binding Path=SelectedTour.Description, StringFormat='Description: {0}'}"></TextBlock>
+                            <TextBlock Text="{Binding Path=SelectedTour.From, StringFormat='From: {0}'}"></TextBlock>
+                            <TextBlock Text="{Binding Path=SelectedTour.To, StringFormat='To: {0}'}"></TextBlock>
+                            <TextBlock Text="{Binding Path=SelectedTour.TransportType, StringFormat='Transportation Type: {0}'}"></TextBlock>
+                            <TextBlock Text="{Binding Path=SelectedTour.Distance, StringFormat='Distance: {0}km'}"></TextBlock>
+                            <TextBlock Text="{Binding Path=SelectedTour.EstimatedTime, StringFormat='Estimated time: {0} days'}"></TextBlock>
+                        </StackPanel>
+
                     </TabItem>
                     <TabItem Header="Route">
                         <!--here goes a map-->
+                        <Image Stretch="UniformToFill" Source="{Binding SelectedTour.TourInfo}"/>
                     </TabItem>
                     <TabItem Header="Misc">
-                        <!--TODO TEXT:-->
-                        <TextBlock Text=""></TextBlock>
+                        <!--Buttons for edit and delete-->
+                        <StackPanel>
+                            <Button>Edit this tour</Button>
+                            <Button>Delete this tour</Button>
+                        </StackPanel>
                     </TabItem>
                 </TabControl>
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>

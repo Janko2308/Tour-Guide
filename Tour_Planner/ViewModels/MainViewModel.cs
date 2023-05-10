@@ -19,13 +19,14 @@ namespace Tour_Planner.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private string searchText = "temporary, to delete";
+        private TourItem selectedTour;
 
-        public string SearchText {
-            get => searchText;
+        public TourItem SelectedTour {
+            get => selectedTour;
             set {
-                searchText = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SearchText)));
+                selectedTour = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTour)));
+                Console.WriteLine("Changing");
             }
         }
 
@@ -33,15 +34,12 @@ namespace Tour_Planner.ViewModels
             this.addSearchBarVM = asbVM;
             this.addNewTourVM = antVM;
             this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
-            SearchCommand = new RelayCommand(param => Debug.Print(searchText));
+            // this.selectedTour is equal if this.Tours contain no entries then empty, else this.Tours[0]
+            this.selectedTour = this.Tours.FirstOrDefault();
 
             ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
         }
-
-
-        public ICommand SearchCommand {
-            get;
-        }
+       
 
         public ICommand ExecuteCommandOpenNewTour { get; }
 

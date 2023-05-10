@@ -39,10 +39,10 @@
             <TextBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="txtTo" Text="{Binding Path=Tour.To}"/>
             <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:"/>
             <ComboBox Grid.Row="4" Grid.Column="1" Margin="10,0,0,0" Name="cmbTransportType" Text="{Binding Path=Tour.TransportType}">
-                <ComboBoxItem Content="Fastest"/>
-                <ComboBoxItem Content="Bus"/>
-                <ComboBoxItem Content="Train"/>
-                <ComboBoxItem Content="Plane"/>
+                <ComboBoxItem Content="fastest"/>
+                <ComboBoxItem Content="shortest"/>
+                <ComboBoxItem Content="pedestrian"/>
+                <ComboBoxItem Content="bicycle"/>
             </ComboBox>
             <!--Click="OnSubmitClicked"-->
             <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94" Command="{Binding ExecuteCommandAdd}"/>

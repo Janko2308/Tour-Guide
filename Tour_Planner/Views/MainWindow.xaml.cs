@@ -22,25 +22,9 @@ namespace Tour_Planner.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TourItem selectedTour = new();
-
-        public TourItem SelectedTour {
-            get => selectedTour;
-            set {
-                selectedTour = value;
-                Console.WriteLine("Changing");
-            }
-        }
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public void ChangeSelected(object sender, SelectionChangedEventArgs e) {
-            if (ToursView.SelectedItem == null) {
-                return;
-            }
-            SelectedTour = ToursView.SelectedItem as TourItem;
         }
     }
 }

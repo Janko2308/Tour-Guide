@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tour_Planner.Model.Enums;
 
 namespace Tour_Planner.Model {
     public class TourItem {
@@ -11,9 +12,9 @@ namespace Tour_Planner.Model {
         public string Description { get; set; } = string.Empty;
         public string From { get; set; } = string.Empty;
         public string To { get; set; } = string.Empty;
-        public string TransportType { get; set; } = string.Empty;
+        public Transport TransportType { get; set; } = Transport.fastest;
         public int Distance { get; set; } = 0;
         public int EstimatedTime { get; set; } = 0;
-        public string TourInfo { get; set; } = string.Empty;
+        public byte[] TourInfo { get; set; } = Array.Empty<byte>();
     }
 }
