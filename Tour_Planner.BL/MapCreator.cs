@@ -16,7 +16,8 @@ namespace Tour_Planner.BL {
             TourCreation res = new TourCreation();
             var key = "puPOsmfIq48rX6ia0nDeC5VBwr8wX3Po";
 
-            var url = $"http://www.mapquestapi.com/directions/v2/route?key={key}&from={from}&to={to}&unit=k&routeType={transportType.ToString()}";
+            var transportTypeString = transportType.ToString();
+            var url = $"http://www.mapquestapi.com/directions/v2/route?key={key}&from={from}&to={to}&unit=k&routeType={transportTypeString}";
             
             using var client = new HttpClient();
             var response = await client.GetAsync(url);
