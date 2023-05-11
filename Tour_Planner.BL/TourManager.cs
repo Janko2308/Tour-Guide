@@ -12,11 +12,12 @@ namespace Tour_Planner.BL {
         }
 
         public void AddTour(TourItem t) {
-            TourCreation res = MapCreator.CreateMap(t.From, t.To, t.TransportType).Result;
-            t.TourInfo = res.Picture;
-            t.EstimatedTime = res.EstimatedTime;
-            t.Distance = res.Distance;
-            DataManager.AddTour(t);
+            MapCreator.CreateMap(t.From, t.To, t.TransportType).ContinueWith(res => {
+                t.Distance = res.Result.Distance;
+                t.EstimatedTime = res.Result.EstimatedTime;
+                t.TourInfo = res.Result.Picture;
+                DataManager.AddTour(t);
+            });
         }
 
         public IEnumerable<TourItem> GetTours() {

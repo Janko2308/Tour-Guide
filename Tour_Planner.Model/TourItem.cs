@@ -13,8 +13,8 @@ namespace Tour_Planner.Model {
         public string From { get; set; } = string.Empty;
         public string To { get; set; } = string.Empty;
         public Transport TransportType { get; set; } = Transport.fastest;
-        public int Distance { get; set; } = 0;
-        public int EstimatedTime { get; set; } = 0;
+        public double Distance { get; set; } = 0;
+        public TimeSpan EstimatedTime { get; set; } = TimeSpan.Zero;
         public byte[] TourInfo { get; set; } = Array.Empty<byte>();
     }
 }

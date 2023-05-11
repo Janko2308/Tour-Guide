@@ -69,8 +69,6 @@
                 </Grid.RowDefinitions>
                 <TabControl Grid.Row="0">
                     <TabItem Header="General">
-                        <!--here goes info ab the tour-->
-                        <!--how to get the selected skill name-->
                         <StackPanel>
                             <TextBlock Text="{Binding Path=SelectedTour.Name, StringFormat='Name of the tour: {0}'}"></TextBlock>
                             <TextBlock Text="{Binding Path=SelectedTour.Description, StringFormat='Description: {0}'}"></TextBlock>
@@ -78,13 +76,12 @@
                             <TextBlock Text="{Binding Path=SelectedTour.To, StringFormat='To: {0}'}"></TextBlock>
                             <TextBlock Text="{Binding Path=SelectedTour.TransportType, StringFormat='Transportation Type: {0}'}"></TextBlock>
                             <TextBlock Text="{Binding Path=SelectedTour.Distance, StringFormat='Distance: {0}km'}"></TextBlock>
-                            <TextBlock Text="{Binding Path=SelectedTour.EstimatedTime, StringFormat='Estimated time: {0} days'}"></TextBlock>
+                            <TextBlock Text="{Binding Path=SelectedTour.EstimatedTime, StringFormat='Estimated time: {0}'}"></TextBlock>
                         </StackPanel>
 
                     </TabItem>
                     <TabItem Header="Route">
-                        <!--here goes a map-->
-                        <Image Stretch="UniformToFill" Source="{Binding SelectedTour.TourInfo}"/>
+                        <Image Source="{Binding SelectedTour.TourInfo}"/>
                     </TabItem>
                     <TabItem Header="Misc">
                         <!--Buttons for edit and delete-->

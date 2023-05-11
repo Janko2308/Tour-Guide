@@ -5,13 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Tour_Planner.DAL {
     public class TourDbContext : DbContext {
         public DbSet<TourItem> TourItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=tourplanner;Username=postgres;Password=changeme");
+            string cp = ConfigurationManager.ConnectionStrings["PostgreSQLConnectionString"].ConnectionString;
+            
+            optionsBuilder.UseNpgsql(cp);
         }
     }
 }
