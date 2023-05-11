@@ -32,11 +32,22 @@ namespace Tour_Planner.BL {
             var lr_lat = boundingBox["lr"]["lat"].ToString();
             var lr_lng = boundingBox["lr"]["lng"].ToString();
             var distance = rootNode["route"]["distance"].ToString();
-            var estTime = TimeSpan.Parse(rootNode["route"]["formattedTime"].ToString());
+            var estTime = rootNode["route"]["formattedTime"].ToString();
 
             distance = distance.Replace(".", ",");
             res.Distance = Convert.ToDouble(distance);
-            res.EstimatedTime = estTime;
+
+            string[] timeArray = estTime.Split(':');
+            int days = 0;
+            int hours = Convert.ToInt32(timeArray[0]);
+            int minutes = Convert.ToInt32(timeArray[1]);
+            int seconds = Convert.ToInt32(timeArray[2]);
+
+            while(hours > 23) {
+                hours -= 24;
+                days++;
+            }
+            res.EstimatedTime = new TimeSpan(days, hours, minutes, seconds);
 
             url = $"http://www.mapquestapi.com/staticmap/v5/map?key={key}&session={sessionId}&boundingBox={ul_lat},{ul_lng},{lr_lat},{lr_lng}&size=800,600";
             var stream = await client.GetStreamAsync(url);
