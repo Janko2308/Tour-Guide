@@ -38,10 +38,25 @@ namespace Tour_Planner.ViewModels
             this.selectedTour = this.Tours.FirstOrDefault();
 
             ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
+            ExecuteCommandOpenNewTourLog = new RelayCommand(param => new Views.AddNewTourLog().ShowDialog());
+            // TODO: ExecuteCommandOpenEditTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
+            ExecuteCommandDeleteThisTour = new RelayCommand(param => {
+                try {
+                    bl.DeleteTour(SelectedTour);
+                    Tours.Remove(SelectedTour);
+                    SelectedTour = Tours.FirstOrDefault();
+                }
+                catch (Exception e) {
+                    Console.WriteLine(e.Message);
+                }
+            });
         }
        
 
         public ICommand ExecuteCommandOpenNewTour { get; }
+        public ICommand ExecuteCommandOpenNewTourLog { get; }
+        public ICommand ExecuteCommandOpenEditTour { get; }
+        public ICommand ExecuteCommandDeleteThisTour { get; }
 
         public ObservableCollection<TourItem> Tours { get; set; }
 

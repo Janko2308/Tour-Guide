@@ -16,8 +16,7 @@ namespace Tour_Planner.ViewModels {
 
         public AddNewTourViewModel(TourManager bl) {
             this.bl = bl;
-            //ExecuteCommandAdd = new RelayCommand(param => AddTourButtonClicked?.Method.Invoke(this, null));
-            // ExecuteCommandAdd uses RelayCommand to send a request to bl function called AddTour(TourItem tour)
+            
             ExecuteCommandAdd = new RelayCommand(param => {
                 try {
                     bl.AddTour(Tour);
@@ -30,9 +29,17 @@ namespace Tour_Planner.ViewModels {
                     MessageBox.Show(e.Message);
                 }
             });
+
+            ExecuteCommandEdit = new RelayCommand(param => {
+                // TODO: Command for edit, and overthink how AddNewTour works
+                // suggestion: it is the same form, but with different buttons
+                // one with "Add" should call addtour from bl and add a new tour to the db
+                // other one with "Edit" should call edittour and edit the tour which it gets at the beginning
+            });
         }
         
         public ICommand ExecuteCommandAdd { get; }
+        public ICommand ExecuteCommandEdit { get; }
         
         public event EventHandler<TourItem> AddTourButtonClicked;
     }

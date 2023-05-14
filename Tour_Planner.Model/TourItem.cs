@@ -16,5 +16,6 @@ namespace Tour_Planner.Model {
         public double Distance { get; set; } = 0;
         public TimeSpan EstimatedTime { get; set; } = TimeSpan.Zero;
         public byte[] TourInfo { get; set; } = Array.Empty<byte>();
+        public TourLogs[] TourLogs { get; set; } = Array.Empty<TourLogs>();
     }
 }

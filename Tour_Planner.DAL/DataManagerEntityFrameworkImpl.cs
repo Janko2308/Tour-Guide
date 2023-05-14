@@ -20,6 +20,17 @@ namespace Tour_Planner.DAL {
             context.SaveChanges();
         }
 
+        public void EditTour(TourItem toChange, TourItem changed) {
+            var currentState = context.Entry(toChange);
+            currentState.CurrentValues.SetValues(changed);
+            context.SaveChanges();
+        }
+
+        public bool DeleteTour(TourItem t) {
+            // TODO: DELETE
+            return false;
+        }
+
         public IEnumerable<TourItem> GetTours() {
             context.TourItems.Load();
             return context.TourItems;
