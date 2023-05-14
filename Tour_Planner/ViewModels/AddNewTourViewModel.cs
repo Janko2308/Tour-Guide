@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using Tour_Planner.BL;
 using Tour_Planner.Model;
+using Tour_Planner.Views;
 
 namespace Tour_Planner.ViewModels {
     public class AddNewTourViewModel : BaseViewModel {
@@ -20,10 +21,8 @@ namespace Tour_Planner.ViewModels {
             ExecuteCommandAdd = new RelayCommand(param => {
                 try {
                     bl.AddTour(Tour);
-                    var window = param as Window;
-                    if (window != null) {
-                        window.Close();
-                    }
+                    Window current = Window.GetWindow((AddNewTour)param);
+                    current.Close();
                 }
                 catch(Exception e) {
                     MessageBox.Show(e.Message);

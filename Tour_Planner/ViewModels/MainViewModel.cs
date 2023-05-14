@@ -50,6 +50,13 @@ namespace Tour_Planner.ViewModels
                     Console.WriteLine(e.Message);
                 }
             });
+
+            TemporaryButton = new RelayCommand(param => {
+                Tours.Clear();
+                selectedTour = null;
+                this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+                this.selectedTour = this.Tours.FirstOrDefault();
+            });
         }
        
 
@@ -57,6 +64,7 @@ namespace Tour_Planner.ViewModels
         public ICommand ExecuteCommandOpenNewTourLog { get; }
         public ICommand ExecuteCommandOpenEditTour { get; }
         public ICommand ExecuteCommandDeleteThisTour { get; }
+        public ICommand TemporaryButton { get; }
 
         public ObservableCollection<TourItem> Tours { get; set; }
 

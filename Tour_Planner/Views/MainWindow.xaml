@@ -49,6 +49,7 @@
             <Button Grid.Column="2" Grid.Row="1" Content="_Add new tour log" Width="100" Command="{Binding Path=ExecuteCommandOpenNewTourLog}"></Button>
             <TabControl>
                 <TabItem Header="Tours">
+                    <!-- TODO: OnPropertyChanged -->
                     <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=Tours}" x:Name="ToursView" SelectedItem="{Binding Path=SelectedTour}">
                         <ListView.View>
                             <GridView>
@@ -89,6 +90,7 @@
                         <StackPanel>
                             <Button>Edit this tour</Button>
                             <Button>Delete this tour</Button>
+                            <Button Content="Temporary refresh button" Command="{Binding Path=TemporaryButton}"></Button>
                         </StackPanel>
                     </TabItem>
                 </TabControl>
