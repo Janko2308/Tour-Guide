@@ -14,22 +14,38 @@ namespace Tour_Planner.ViewModels {
     public class AddNewTourViewModel : BaseViewModel {
         private TourManager bl;
         public TourItem Tour { get; private set; } = new();
+        public bool IsEdited { get; private set; } = false;
 
         public AddNewTourViewModel(TourManager bl) {
             this.bl = bl;
+            this.IsEdited = false;
             
             ExecuteCommandAdd = new RelayCommand(param => {
                 try {
                     bl.AddTour(Tour);
-                    Window current = Window.GetWindow((AddNewTour)param);
-                    current.Close();
+                    /*Window current = Window.GetWindow((AddNewTour)param);
+                    current.Close();*/
                 }
                 catch(Exception e) {
                     MessageBox.Show(e.Message);
                 }
             });
+        }
+
+        public AddNewTourViewModel(TourManager bl, TourItem selectedTour) {
+            this.bl = bl;
+            this.Tour = selectedTour;
+            this.IsEdited = true;
 
             ExecuteCommandEdit = new RelayCommand(param => {
+                try {
+                    bl.EditTour(Tour);
+                    /*Window current = Window.GetWindow((AddNewTour)param);
+                    current.Close();*/
+                }
+                catch(Exception e) {
+                    MessageBox.Show(e.Message);
+                }
                 // TODO: Command for edit, and overthink how AddNewTour works
                 // suggestion: it is the same form, but with different buttons
                 // one with "Add" should call addtour from bl and add a new tour to the db

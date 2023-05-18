@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Tour_Planner.BL;
 using Tour_Planner.DAL;
+using Tour_Planner.Model;
 using Tour_Planner.ViewModels;
 
 namespace Tour_Planner.Views {
@@ -23,6 +24,11 @@ namespace Tour_Planner.Views {
         public AddNewTour() {
             InitializeComponent();
             DataContext = new AddNewTourViewModel(new TourManager(new DataManagerEntityFrameworkImpl()));
+        }
+
+        public AddNewTour(TourItem selectedTour) {
+            InitializeComponent();
+            DataContext = new AddNewTourViewModel(new TourManager(new DataManagerEntityFrameworkImpl()), selectedTour);
         }
     }
 }

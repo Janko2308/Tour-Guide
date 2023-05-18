@@ -20,12 +20,12 @@ namespace Tour_Planner.BL {
             });
         }
 
-        public void EditTour(TourItem toChange, TourItem changed) {
-            MapCreator.CreateMap(changed.From, changed.To, changed.TransportType).ContinueWith(res => {
-                changed.Distance = res.Result.Distance;
-                changed.EstimatedTime = res.Result.EstimatedTime;
-                changed.TourInfo = res.Result.Picture;
-                DataManager.EditTour(toChange, changed);
+        public void EditTour(TourItem t) {
+            MapCreator.CreateMap(t.From, t.To, t.TransportType).ContinueWith(res => {
+                t.Distance = res.Result.Distance;
+                t.EstimatedTime = res.Result.EstimatedTime;
+                t.TourInfo = res.Result.Picture;
+                DataManager.EditTour(t);
             });
         }
 

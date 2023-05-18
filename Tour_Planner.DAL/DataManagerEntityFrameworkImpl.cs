@@ -20,10 +20,9 @@ namespace Tour_Planner.DAL {
             context.SaveChanges();
         }
 
-        public void EditTour(TourItem toChange, TourItem changed) {
-            var currentState = context.Entry(toChange);
-            currentState.CurrentValues.SetValues(changed);
-            context.SaveChanges();
+        public void EditTour(TourItem t) {
+            // TODO: change the values of the entity in DB with the t.Id Id value, to the values contained in t
+            
         }
 
         public bool DeleteTour(TourItem t) {

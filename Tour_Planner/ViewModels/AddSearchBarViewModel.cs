@@ -12,7 +12,7 @@ namespace Tour_Planner.ViewModels {
 
         public event PropertyChangedEventHandler? PropertyChanged;
         
-        private string searchText = "temporary, to delete";
+        private string searchText = "Enter tour name...";
 
         public string SearchText {
             get => searchText;

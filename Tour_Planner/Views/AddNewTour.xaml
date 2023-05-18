@@ -6,7 +6,9 @@
         xmlns:viewmodels="clr-namespace:Tour_Planner.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddNewTourViewModel}"
         mc:Ignorable="d"
         Title="Add new tour" Height="300" Width="600">
-    <!--Name, Description, From, To, TransportType, Distance, EstimatedTime, TourInfo-->
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -44,8 +46,15 @@
                 <ComboBoxItem Content="pedestrian"/>
                 <ComboBoxItem Content="bicycle"/>
             </ComboBox>
-            <!--Click="OnSubmitClicked"-->
-            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94" Command="{Binding ExecuteCommandAdd}"/>
+
+            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Add" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94" 
+                    Command="{Binding ExecuteCommandAdd}"
+                    Visibility="{Binding IsEdited, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+
+            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Edit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94"
+                    Command="{Binding ExecuteCommandEdit}"
+                    Visibility="{Binding IsEdited, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+
         </Grid>
     </Grid>
 </Window>

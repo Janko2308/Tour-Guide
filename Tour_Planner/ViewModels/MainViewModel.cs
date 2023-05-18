@@ -39,7 +39,7 @@ namespace Tour_Planner.ViewModels
 
             ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
             ExecuteCommandOpenNewTourLog = new RelayCommand(param => new Views.AddNewTourLog().ShowDialog());
-            // TODO: ExecuteCommandOpenEditTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
+            ExecuteCommandOpenEditTour = new RelayCommand(param => new Views.AddNewTour(selectedTour).ShowDialog());
             ExecuteCommandDeleteThisTour = new RelayCommand(param => {
                 try {
                     bl.DeleteTour(SelectedTour);
