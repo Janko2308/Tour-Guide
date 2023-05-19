@@ -49,7 +49,7 @@ namespace Tour_Planner.ViewModels
             this.selectedTour = this.Tours.FirstOrDefault();
 
             ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
-            ExecuteCommandOpenNewTourLog = new RelayCommand(param => new Views.AddNewTourLog().ShowDialog());
+            ExecuteCommandOpenNewTourLog = new RelayCommand(param => new Views.AddNewTourLog(selectedTour.Id).ShowDialog());
             ExecuteCommandOpenEditTour = new RelayCommand(param => {
                 try {
                     if (selectedTour == null) {
