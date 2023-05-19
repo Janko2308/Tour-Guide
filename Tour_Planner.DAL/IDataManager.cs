@@ -9,7 +9,7 @@ namespace Tour_Planner.DAL {
     public interface IDataManager {
         public void AddTour(TourItem t);
         public void EditTour(TourItem t);
-        public bool DeleteTour(TourItem t);
+        public void DeleteTour(TourItem t);
         public IEnumerable<TourItem> GetTours();
     }
 }

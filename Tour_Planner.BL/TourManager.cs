@@ -29,8 +29,8 @@ namespace Tour_Planner.BL {
             });
         }
 
-        public bool DeleteTour(TourItem t) {
-            return DataManager.DeleteTour(t);
+        public void DeleteTour(TourItem t) {
+            DataManager.DeleteTour(t);
         }
 
         public IEnumerable<TourItem> GetTours() {

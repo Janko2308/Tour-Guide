@@ -39,9 +39,10 @@ namespace Tour_Planner.DAL {
             context.SaveChanges();
         }
 
-        public bool DeleteTour(TourItem t) {
+        public void DeleteTour(TourItem t) {
             // TODO: DELETE
-            return false;
+            context.TourItems.Remove(t);
+            context.SaveChanges();
         }
 
         public IEnumerable<TourItem> GetTours() {

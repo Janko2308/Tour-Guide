@@ -89,7 +89,7 @@
                         <!--Buttons for edit and delete-->
                         <StackPanel>
                             <Button Content="_Edit this tour" Command="{Binding Path=ExecuteCommandOpenEditTour}"></Button>
-                            <Button>Delete this tour</Button>
+                            <Button Content="_Delete this tour" Command="{Binding Path=ExecuteCommandDeleteThisTour}"></Button>
                             <Button Content="Temporary refresh button" Command="{Binding Path=TemporaryButton}"></Button>
                         </StackPanel>
                     </TabItem>

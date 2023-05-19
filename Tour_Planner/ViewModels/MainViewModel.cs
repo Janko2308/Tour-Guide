@@ -43,7 +43,6 @@ namespace Tour_Planner.ViewModels
             ExecuteCommandDeleteThisTour = new RelayCommand(param => {
                 try {
                     bl.DeleteTour(SelectedTour);
-                    Tours.Remove(SelectedTour);
                     SelectedTour = Tours.FirstOrDefault();
                 }
                 catch (Exception e) {
