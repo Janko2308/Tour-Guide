@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Tour_Planner.BL;
@@ -26,7 +27,16 @@ namespace Tour_Planner.ViewModels
             set {
                 selectedTour = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTour)));
-                Console.WriteLine("Changing");
+            }
+        }
+
+        private TourLogs selectedTourLog;
+
+        public TourLogs SelectedTourLog {
+            get => selectedTourLog;
+            set {
+                selectedTourLog = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTourLog)));
             }
         }
 
@@ -34,16 +44,37 @@ namespace Tour_Planner.ViewModels
             this.addSearchBarVM = asbVM;
             this.addNewTourVM = antVM;
             this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+            this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
             // this.selectedTour is equal if this.Tours contain no entries then empty, else this.Tours[0]
             this.selectedTour = this.Tours.FirstOrDefault();
 
             ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
             ExecuteCommandOpenNewTourLog = new RelayCommand(param => new Views.AddNewTourLog().ShowDialog());
-            ExecuteCommandOpenEditTour = new RelayCommand(param => new Views.AddNewTour(selectedTour).ShowDialog());
+            ExecuteCommandOpenEditTour = new RelayCommand(param => {
+                try {
+                    if (selectedTour == null) {
+                        MessageBox.Show("Please select a tour to edit");
+                    } else {
+                        new Views.AddNewTour(selectedTour).ShowDialog();
+                    }
+                }
+                catch(Exception e) {
+                    MessageBox.Show(e.Message);
+                }
+            });
             ExecuteCommandDeleteThisTour = new RelayCommand(param => {
                 try {
-                    bl.DeleteTour(SelectedTour);
-                    SelectedTour = Tours.FirstOrDefault();
+                    if (selectedTour == null) {
+                        MessageBox.Show("Please select a tour to delete");
+                        return;
+                    }
+
+                    var yesOrNo = MessageBox.Show($"Do you really want to delete Tour '{SelectedTour.Name}'?", "Confirmation", MessageBoxButton.YesNo);
+
+                    if (yesOrNo == MessageBoxResult.Yes) {
+                        bl.DeleteTour(SelectedTour);
+                        SelectedTour = Tours.FirstOrDefault();
+                    }
                 }
                 catch (Exception e) {
                     Console.WriteLine(e.Message);
@@ -53,7 +84,9 @@ namespace Tour_Planner.ViewModels
             TemporaryButton = new RelayCommand(param => {
                 Tours.Clear();
                 selectedTour = null;
+                TourLogs.Clear();
                 this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+                this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
                 this.selectedTour = this.Tours.FirstOrDefault();
             });
         }
@@ -66,6 +99,7 @@ namespace Tour_Planner.ViewModels
         public ICommand TemporaryButton { get; }
 
         public ObservableCollection<TourItem> Tours { get; set; }
+        public ObservableCollection<TourLogs> TourLogs { get; set; }
 
     }
 }

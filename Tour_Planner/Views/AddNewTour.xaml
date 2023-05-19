@@ -33,12 +33,16 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
             <TextBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Name="txtName" Text="{Binding Path=Tour.Name}"/>
+            
             <Label Grid.Row="1" Grid.Column="0" Content="Description:"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" Name="txtDescription" Text="{Binding Path=Tour.Description}"/>
+            
             <Label Grid.Row="2" Grid.Column="0" Content="From:"/>
             <TextBox Grid.Row="2" Grid.Column="1" Margin="10,0,0,0" Name="txtFrom" Text="{Binding Path=Tour.From}"/>
+            
             <Label Grid.Row="3" Grid.Column="0" Content="To:"/>
             <TextBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="txtTo" Text="{Binding Path=Tour.To}"/>
+            
             <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:"/>
             <ComboBox Grid.Row="4" Grid.Column="1" Margin="10,0,0,0" Name="cmbTransportType" Text="{Binding Path=Tour.TransportType}">
                 <ComboBoxItem Content="fastest"/>
@@ -47,13 +51,13 @@
                 <ComboBoxItem Content="bicycle"/>
             </ComboBox>
 
-            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Add" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94" 
+            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Add" HorizontalAlignment="Center" Margin="0,20,70,0" Width="94" 
                     Command="{Binding ExecuteCommandAdd}"
-                    Visibility="{Binding IsEdited, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}" />
+                    Visibility="{Binding IsAdded, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" Grid.Column="1" />
 
-            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Edit" HorizontalAlignment="Center" Margin="0,20,0,0" Width="94"
+            <Button Grid.Row="6" Content="Edit" HorizontalAlignment="Center" Margin="0,10,70,10" Width="94"
                     Command="{Binding ExecuteCommandEdit}"
-                    Visibility="{Binding IsEdited, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" />
+                    Visibility="{Binding IsEdited, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" Grid.Column="1" />
 
         </Grid>
     </Grid>

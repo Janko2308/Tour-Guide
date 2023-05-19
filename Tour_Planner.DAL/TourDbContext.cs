@@ -10,6 +10,7 @@ using System.Configuration;
 namespace Tour_Planner.DAL {
     public class TourDbContext : DbContext {
         public DbSet<TourItem> TourItems { get; set; }
+        public DbSet<TourLogs> TourLogItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             string cp = ConfigurationManager.ConnectionStrings["PostgreSQLConnectionString"].ConnectionString;

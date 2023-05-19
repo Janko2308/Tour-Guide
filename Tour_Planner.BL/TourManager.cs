@@ -33,8 +33,24 @@ namespace Tour_Planner.BL {
             DataManager.DeleteTour(t);
         }
 
+        public void AddTourLog(TourLogs tl) {
+            DataManager.AddTourLog(tl);
+        }
+
+        public void EditTourLog(TourLogs tl) {
+            DataManager.EditTourLog(tl);
+        }
+
+        public void DeleteTourLog(TourLogs tl) {
+            DataManager.DeleteTourLog(tl);
+        }
+
         public IEnumerable<TourItem> GetTours() {
             return DataManager.GetTours();
+        }
+
+        public IEnumerable<TourLogs> GetTourLogs() {
+            return DataManager.GetTourLogs();
         }
     }
 }

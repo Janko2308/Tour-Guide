@@ -15,10 +15,11 @@ namespace Tour_Planner.ViewModels {
         private TourManager bl;
         public TourItem Tour { get; private set; } = new();
         public bool IsEdited { get; private set; } = false;
+        public bool IsAdded { get; private set; } = false;
 
         public AddNewTourViewModel(TourManager bl) {
             this.bl = bl;
-            this.IsEdited = false;
+            this.IsAdded = true;
             
             ExecuteCommandAdd = new RelayCommand(param => {
                 try {
@@ -56,6 +57,6 @@ namespace Tour_Planner.ViewModels {
         public ICommand ExecuteCommandAdd { get; }
         public ICommand ExecuteCommandEdit { get; }
         
-        public event EventHandler<TourItem> AddTourButtonClicked;
+        //public event EventHandler<TourItem> AddTourButtonClicked;
     }
 }

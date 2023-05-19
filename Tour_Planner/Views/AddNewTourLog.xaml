@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_Planner.Views"
         mc:Ignorable="d"
-        Title="AddNewTourLog" Height="450" Width="800">
+        Title="AddNewTourLog" Height="300" Width="600">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Tour Log Information" FontSize="24" HorizontalAlignment="Center" />
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Date and Time: "/>
+            <DatePicker Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Name="txtDateTime" Text="{Binding Path=TourLog.DateTime}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Difficulty: "/>
+            <ComboBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" Name="cmbDifficulty" Text="{Binding Path=TourLog.Difficulty}">
+                <ComboBoxItem Content="None"/>
+                <ComboBoxItem Content="Easy"/>
+                <ComboBoxItem Content="Medium"/>
+                <ComboBoxItem Content="Hard"/>
+            </ComboBox>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Total time: "/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="10,0,0,0" Name="txtTemp" Text="{Binding Path=TourLog.TotalTime}"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Rating: "/>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="txtRating" Text="{Binding Path=TourLog.Rating}"/>
+
+            <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Add" HorizontalAlignment="Center" Margin="0,20,70,0" Width="94"
+                    Command="{Binding ExecuteCommandAdd}"
+                    Visibility="{Binding IsAdded, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" Grid.Column="1"/>
+
+            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Edit" HorizontalAlignment="Center" Margin="0,0,70,0" Width="94"
+                    Command="{Binding ExecuteCommandEdit}"
+                    Visibility="{Binding IsEdited, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" Grid.Column="1"/>
+        </Grid>
     </Grid>
 </Window>

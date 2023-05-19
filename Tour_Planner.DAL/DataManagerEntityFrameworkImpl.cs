@@ -45,9 +45,39 @@ namespace Tour_Planner.DAL {
             context.SaveChanges();
         }
 
+        public void AddTourLog(TourLogs tl) {
+            context.TourLogItems.Add(tl);
+            context.SaveChanges();
+        }
+
+        public void EditTourLog(TourLogs tl) {
+            TourLogs tourLog = context.TourLogItems.Find(tl.Id);
+            if (tourLog == null) {
+                throw new Exception("TourLog not found");
+            }
+
+            // change the values
+            tourLog.Comment = tl.Comment;
+            tourLog.Difficulty = tl.Difficulty;
+            tourLog.TotalTime = tl.TotalTime;
+            tourLog.Rating = tl.Rating;
+
+            context.SaveChanges();
+        }
+
+        public void DeleteTourLog(TourLogs tl) {
+            context.TourLogItems.Remove(tl);
+            context.SaveChanges();
+        }
+
         public IEnumerable<TourItem> GetTours() {
             context.TourItems.Load();
             return context.TourItems;
+        }
+
+        public IEnumerable<TourLogs> GetTourLogs() {
+            context.TourLogItems.Load();
+            return context.TourLogItems;
         }
     }
 }
