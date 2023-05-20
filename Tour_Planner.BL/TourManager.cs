@@ -34,10 +34,12 @@ namespace Tour_Planner.BL {
         }
 
         public void AddTourLog(TourLogs tl) {
+            tl.DateTime = ConvertUTC(tl.DateTime);
             DataManager.AddTourLog(tl);
         }
 
         public void EditTourLog(TourLogs tl) {
+            tl.DateTime = ConvertUTC(tl.DateTime);
             DataManager.EditTourLog(tl);
         }
 
@@ -51,6 +53,10 @@ namespace Tour_Planner.BL {
 
         public IEnumerable<TourLogs> GetTourLogs() {
             return DataManager.GetTourLogs();
+        }
+
+        public DateTime ConvertUTC(DateTime dt) {
+            return dt.ToUniversalTime();
         }
     }
 }

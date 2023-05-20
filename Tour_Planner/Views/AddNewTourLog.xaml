@@ -46,11 +46,14 @@
             <Label Grid.Row="3" Grid.Column="0" Content="Rating: "/>
             <TextBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="txtRating" Text="{Binding Path=TourLog.Rating}"/>
 
-            <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Add" HorizontalAlignment="Center" Margin="0,20,70,0" Width="94"
+            <Label Grid.Row="4" Grid.Column="0" Content="Comment: "/>
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="10,0,0,0" Name="txtComment" Text="{Binding Path=TourLog.Comment}"/>
+
+            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Add" HorizontalAlignment="Center" Margin="0,20,70,0" Width="94"
                     Command="{Binding ExecuteCommandAdd}"
                     Visibility="{Binding IsAdded, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" Grid.Column="1"/>
 
-            <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Edit" HorizontalAlignment="Center" Margin="0,0,70,0" Width="94"
+            <Button Grid.Row="6" Grid.ColumnSpan="2" Content="Edit" HorizontalAlignment="Center" Margin="0,0,70,0" Width="94"
                     Command="{Binding ExecuteCommandEdit}"
                     Visibility="{Binding IsEdited, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}" Grid.Column="1"/>
         </Grid>

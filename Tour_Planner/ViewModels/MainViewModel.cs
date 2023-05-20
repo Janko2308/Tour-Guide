@@ -47,9 +47,23 @@ namespace Tour_Planner.ViewModels
             this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
             // this.selectedTour is equal if this.Tours contain no entries then empty, else this.Tours[0]
             this.selectedTour = this.Tours.FirstOrDefault();
+            this.selectedTourLog = this.TourLogs.FirstOrDefault();
 
             ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
-            ExecuteCommandOpenNewTourLog = new RelayCommand(param => new Views.AddNewTourLog(selectedTour.Id).ShowDialog());
+            
+            ExecuteCommandOpenNewTourLog = new RelayCommand(param => {
+                try {
+                    if (selectedTour == null) {
+                        MessageBox.Show("Please select a tour first");
+                    } else {
+                        new Views.AddNewTourLog(selectedTour.Id).ShowDialog();
+                    }
+                }
+                catch(Exception e) {
+                    MessageBox.Show(e.Message);
+                }
+            });
+            
             ExecuteCommandOpenEditTour = new RelayCommand(param => {
                 try {
                     if (selectedTour == null) {
@@ -62,6 +76,20 @@ namespace Tour_Planner.ViewModels
                     MessageBox.Show(e.Message);
                 }
             });
+
+            ExecuteCommandOpenEditTourLog = new RelayCommand(param => {
+                try {
+                    if (selectedTourLog == null) {
+                        MessageBox.Show("No tour log selected!");
+                    } else {
+                        new Views.AddNewTourLog(SelectedTourLog).ShowDialog();
+                    }
+                }
+                catch (Exception e) {
+                    MessageBox.Show(e.Message);
+                }
+            });
+            
             ExecuteCommandDeleteThisTour = new RelayCommand(param => {
                 try {
                     if (selectedTour == null) {
@@ -81,6 +109,25 @@ namespace Tour_Planner.ViewModels
                 }
             });
 
+            ExecuteCommandDeleteThisTourLog = new RelayCommand(param => {
+                try {
+                    if (selectedTourLog == null) {
+                        MessageBox.Show("No tour log selected!");
+                        return;
+                    }
+
+                    var yesOrNo = MessageBox.Show($"Do you really want to delete this tour log? Comment name: {selectedTourLog.Comment}", "Confirmation", MessageBoxButton.YesNo);
+
+                    if (yesOrNo == MessageBoxResult.Yes) {
+                        bl.DeleteTourLog(SelectedTourLog);
+                        SelectedTourLog = TourLogs.FirstOrDefault();
+                    }
+                }
+                catch (Exception e) {
+                    MessageBox.Show(e.Message);
+                }
+            });
+
             TemporaryButton = new RelayCommand(param => {
                 Tours.Clear();
                 selectedTour = null;
@@ -95,7 +142,9 @@ namespace Tour_Planner.ViewModels
         public ICommand ExecuteCommandOpenNewTour { get; }
         public ICommand ExecuteCommandOpenNewTourLog { get; }
         public ICommand ExecuteCommandOpenEditTour { get; }
+        public ICommand ExecuteCommandOpenEditTourLog { get; }
         public ICommand ExecuteCommandDeleteThisTour { get; }
+        public ICommand ExecuteCommandDeleteThisTourLog { get; }
         public ICommand TemporaryButton { get; }
 
         public ObservableCollection<TourItem> Tours { get; set; }
