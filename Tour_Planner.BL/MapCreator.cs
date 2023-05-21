@@ -12,6 +12,7 @@ using Tour_Planner.Model.Enums;
 
 namespace Tour_Planner.BL {
     public class MapCreator {
+        private readonly ILoggerWrapper _logger = LoggerFactory.GetLogger(typeof(MapCreator));
         public async Task<TourCreation> CreateMap(string from, string to, Transport transportType) {
             TourCreation res = new TourCreation();
             var key = "puPOsmfIq48rX6ia0nDeC5VBwr8wX3Po";
@@ -59,6 +60,7 @@ namespace Tour_Planner.BL {
             }
 
             res.Picture = bitmapData;
+            _logger.Info("Map created successfully");
             return res;
         }
     }

@@ -26,10 +26,10 @@
         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
-                    <MenuItem Header="Load"/>
-                    <MenuItem Header="Save"/>
+                    <MenuItem Header="Import"/>
+                    <MenuItem Header="Export"/>
                 </MenuItem>
-                <MenuItem Header="Edit"/>
+                <MenuItem Header="Refresh data"/>
                 <MenuItem Header="Options"/>
                 <MenuItem Header="Help" />
             </Menu>
@@ -49,7 +49,7 @@
             <TabControl>
                 <TabItem Header="Tours">
                     <!-- TODO: OnPropertyChanged -->
-                    <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=Tours}" x:Name="ToursView" SelectedItem="{Binding Path=SelectedTour}">
+                    <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=Tours}" x:Name="ToursView" SelectionMode="Single" SelectedItem="{Binding Path=SelectedTour}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>
@@ -96,7 +96,7 @@
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
                 <TabControl Grid.Row="2">
                     <TabItem Header="Tour Logs">
-                        <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TourLogs}" x:Name="TourLogsView" SelectedItem="{Binding Path=SelectedTourLog}">
+                        <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TourLogs}" x:Name="TourLogsView" SelectionMode="Single" SelectedItem="{Binding Path=SelectedTourLog}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Comment}"></GridViewColumn>

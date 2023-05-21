@@ -6,57 +6,134 @@ namespace Tour_Planner.BL {
     public class TourManager {
         private IDataManager DataManager;
         private MapCreator MapCreator = new();
+        private readonly ILoggerWrapper logger = LoggerFactory.GetLogger(typeof(TourManager));
 
         public TourManager(IDataManager dataManager) {
             this.DataManager = dataManager;
         }
 
         public void AddTour(TourItem t) {
-            MapCreator.CreateMap(t.From, t.To, t.TransportType).ContinueWith(res => {
-                t.Distance = res.Result.Distance;
-                t.EstimatedTime = res.Result.EstimatedTime;
-                t.TourInfo = res.Result.Picture;
-                DataManager.AddTour(t);
-            });
+            try {
+                logger.Info("Beginning to add a tour...");
+                MapCreator.CreateMap(t.From, t.To, t.TransportType).ContinueWith(res => {
+                    t.Distance = res.Result.Distance;
+                    t.EstimatedTime = res.Result.EstimatedTime;
+                    t.TourInfo = res.Result.Picture;
+                    DataManager.AddTour(t);
+                    logger.Info("Tour added");
+                });
+            }
+            catch (Exception e) {
+                logger.Fatal("Failed to add tour", e);
+            }
         }
 
+
         public void EditTour(TourItem t) {
-            MapCreator.CreateMap(t.From, t.To, t.TransportType).ContinueWith(res => {
-                t.Distance = res.Result.Distance;
-                t.EstimatedTime = res.Result.EstimatedTime;
-                t.TourInfo = res.Result.Picture;
-                DataManager.EditTour(t);
-            });
+            try {
+                logger.Info($"Beginning to edit tour with id {t.Id}");
+                MapCreator.CreateMap(t.From, t.To, t.TransportType).ContinueWith(res => {
+                    t.Distance = res.Result.Distance;
+                    t.EstimatedTime = res.Result.EstimatedTime;
+                    t.TourInfo = res.Result.Picture;
+                    DataManager.EditTour(t);
+                    logger.Info("Tour edited successfully");
+                });
+            }
+            catch (Exception e) {
+                logger.Fatal("Failed to edit tour", e);
+            }
         }
 
         public void DeleteTour(TourItem t) {
-            DataManager.DeleteTour(t);
+            try {
+                logger.Info($"Beginning to delete tour with id {t.Id}");
+                DataManager.DeleteTour(t);
+                logger.Info("Tour deleted successfully");
+            }
+            catch (Exception e) {
+                logger.Fatal("Failed to delete tour", e);
+            }
         }
 
         public void AddTourLog(TourLogs tl) {
-            tl.DateTime = ConvertUTC(tl.DateTime);
-            DataManager.AddTourLog(tl);
+            try {
+                logger.Info($"Beginning to add tour log for tour with id {tl.TourId}");
+                tl.DateTime = ConvertUTC(tl.DateTime);
+                DataManager.AddTourLog(tl);
+                logger.Info($"Tour log added successfully");
+            }
+            catch (Exception e) {
+                logger.Fatal($"Failed to add tour log", e);
+            }
         }
 
         public void EditTourLog(TourLogs tl) {
-            tl.DateTime = ConvertUTC(tl.DateTime);
-            DataManager.EditTourLog(tl);
+            try {
+                logger.Info($"Beginning to edit tour log with id {tl.Id}");
+                tl.DateTime = ConvertUTC(tl.DateTime);
+                DataManager.EditTourLog(tl);
+                logger.Info("Tour log edited successfully");
+            }
+            catch (Exception e) {
+                logger.Fatal("Failed to edit tour log", e);
+            }
         }
 
         public void DeleteTourLog(TourLogs tl) {
-            DataManager.DeleteTourLog(tl);
+            try {
+                logger.Info($"Beginning to delete tour log with id {tl.Id}");
+                DataManager.DeleteTourLog(tl);
+                logger.Info("Tour log deleted successfully");
+            }
+            catch (Exception e) {
+                logger.Fatal("Failed to delete tour log", e);
+            }
         }
 
         public IEnumerable<TourItem> GetTours() {
-            return DataManager.GetTours();
+            try {
+                logger.Info("Getting tours...");
+                return DataManager.GetTours();
+            }
+            catch (Exception e) {
+                logger.Fatal("Failed to get tours", e);
+                return null;
+            }
         }
 
         public IEnumerable<TourLogs> GetTourLogs() {
-            return DataManager.GetTourLogs();
+            try {
+                logger.Info("Getting tour logs...");
+                return DataManager.GetTourLogs();
+            }
+            catch (Exception e) {
+                logger.Fatal("Failed to get tour logs", e);
+                return null;
+            }
         }
 
         public DateTime ConvertUTC(DateTime dt) {
-            return dt.ToUniversalTime();
+            try {
+                logger.Info("Converting UTC...");
+                return TimeZoneInfo.ConvertTimeFromUtc(dt, TimeZoneInfo.Local);
+            }
+            catch (Exception e) {
+                logger.Fatal("Failed to convert UTC", e);
+                return dt;
+            }
+        }
+
+        // TODO: test function, no calls yet
+        public DateTime ConvertLocal(DateTime dt) {
+            try {
+                logger.Info("Converting local...");
+                return TimeZoneInfo.ConvertTimeToUtc(dt, TimeZoneInfo.Local);
+            }
+            catch (Exception e) {
+                logger.Fatal("Failed to convert local", e);
+                return dt;
+            }
         }
     }
 }

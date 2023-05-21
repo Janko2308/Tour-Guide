@@ -16,6 +16,11 @@ namespace Tour_Planner.DAL {
         }
         
         public void AddTour(TourItem t) {
+            // check if the t.name already exists
+            if (context.TourItems.Any(x => x.Name == t.Name)) {
+                throw new DbUpdateException($"Tour name {t.Name} already used");
+            }
+            
             context.TourItems.Add(t);
             context.SaveChanges();
         }
@@ -23,8 +28,14 @@ namespace Tour_Planner.DAL {
         public void EditTour(TourItem t) {
             // find item in DB with the same Id as t.Id
             TourItem tour = context.TourItems.Find(t.Id);
+
             if (tour == null) {
-                throw new Exception("Tour not found");
+                throw new KeyNotFoundException("Tour not found");
+            }
+
+            // check if the t.name does not collide with any other tour besides the one we are editing
+            if (context.TourItems.Any(x => x.Name == t.Name && x.Id != t.Id)) {
+                throw new DbUpdateException($"Tour name {t.Name} already used");
             }
             
             // change the values of the entity in DB with the t.Id Id value, to the values contained in t
@@ -46,14 +57,24 @@ namespace Tour_Planner.DAL {
         }
 
         public void AddTourLog(TourLogs tl) {
+            // check if such tourlog already exists (i.e. same tour, same date)
+            if (context.TourLogItems.Any(x => x.TourId == tl.TourId && x.DateTime == tl.DateTime)) {
+                throw new DbUpdateException($"TourLog for tour {tl.TourId} on date {tl.DateTime} already exists");
+            }
             context.TourLogItems.Add(tl);
             context.SaveChanges();
         }
 
         public void EditTourLog(TourLogs tl) {
             TourLogs tourLog = context.TourLogItems.Find(tl.Id);
+            
             if (tourLog == null) {
-                throw new Exception("TourLog not found");
+                throw new KeyNotFoundException("TourLog not found");
+            }
+
+            // check if such tourlog already exists (i.e. same tour, same date)
+            if (context.TourLogItems.Any(x => x.TourId == tl.TourId && x.DateTime == tl.DateTime && x.Id != tl.Id)) {
+                throw new DbUpdateException($"TourLog for tour {tl.TourId} on date {tl.DateTime} already exists");
             }
 
             // change the values
