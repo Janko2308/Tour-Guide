@@ -26,11 +26,11 @@
         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
-                    <MenuItem Header="Import"/>
-                    <MenuItem Header="Export"/>
+                    <MenuItem Header="Import .csv"/>
+                    <MenuItem Header="Export .csv"/>
                 </MenuItem>
-                <MenuItem Header="Refresh data"/>
-                <MenuItem Header="Options"/>
+                <MenuItem Header="Tour report of current tour"/>
+                <MenuItem Header="Summarize report"/>
                 <MenuItem Header="Help" />
             </Menu>
             <local:AddSearchBar x:Name="AddSearchBar"/>
@@ -99,7 +99,11 @@
                         <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TourLogs}" x:Name="TourLogsView" SelectionMode="Single" SelectedItem="{Binding Path=SelectedTourLog}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Comment}"></GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=DateTime}"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Comment}"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Difficulty}"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalTime}"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Rating}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
