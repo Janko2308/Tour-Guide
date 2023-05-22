@@ -8,19 +8,13 @@ using System.Threading.Tasks;
 
 namespace Tour_Planner.ViewModels
 {
-    class BaseViewModel : INotifyPropertyChanged
-
-
-    {
+    public class BaseViewModel : INotifyPropertyChanged {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         //Callermembername sets the propertyname automatically to the membername of the caller
 
-        protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
-        {
+        protected void OnPropertyChanged([CallerMemberName]string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
-        
     }
 }
