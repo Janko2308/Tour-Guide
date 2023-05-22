@@ -30,6 +30,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Date and Time: "/>
+            <!-- TODO: Add Date and Time -->
             <DatePicker Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Name="txtDateTime" Text="{Binding Path=TourLog.DateTime}"/>
 
             <Label Grid.Row="1" Grid.Column="0" Content="Difficulty: "/>

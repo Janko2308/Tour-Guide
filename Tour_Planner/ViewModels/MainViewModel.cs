@@ -137,7 +137,20 @@ namespace Tour_Planner.ViewModels
                 this.selectedTour = this.Tours.FirstOrDefault();
             });
         }
-       
+
+        public object ConvertTimeToFormattedString(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+            if (value is TimeSpan timeSpan) {
+                string days = timeSpan.Days.ToString("00");
+                string hours = timeSpan.Hours.ToString("00");
+                string minutes = timeSpan.Minutes.ToString("00");
+                string seconds = timeSpan.Seconds.ToString("00");
+
+                return $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds";
+            }
+
+            return string.Empty;
+        }
+
 
         public ICommand ExecuteCommandOpenNewTour { get; }
         public ICommand ExecuteCommandOpenNewTourLog { get; }
