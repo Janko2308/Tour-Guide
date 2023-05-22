@@ -71,13 +71,14 @@
                 <TabControl Grid.Row="0">
                     <TabItem Header="General">
                         <StackPanel>
-                            <TextBlock Text="{Binding Path=SelectedTour.Name, StringFormat='Name of the tour: {0}'}"></TextBlock>
-                            <TextBlock Text="{Binding Path=SelectedTour.Description, StringFormat='Description: {0}'}"></TextBlock>
-                            <TextBlock Text="{Binding Path=SelectedTour.From, StringFormat='From: {0}'}"></TextBlock>
-                            <TextBlock Text="{Binding Path=SelectedTour.To, StringFormat='To: {0}'}"></TextBlock>
-                            <TextBlock Text="{Binding Path=SelectedTour.TransportType, StringFormat='Transportation Type: {0}'}"></TextBlock>
-                            <TextBlock Text="{Binding Path=SelectedTour.Distance, StringFormat='Distance: {0}km'}"></TextBlock>
-                            <TextBlock Text="{Binding Path=SelectedTour.EstimatedTime, StringFormat='Estimated time: {0}'}"></TextBlock>
+                            <TextBlock FontSize="15" Text="{Binding Path=SelectedTour.Name, StringFormat='Name of the tour: {0}'}"/>
+                            <TextBlock FontSize="15" Text="{Binding Path=SelectedTour.Description, StringFormat='Description: {0}'}"/>
+                            <TextBlock FontSize="15" Text="{Binding Path=SelectedTour.From, StringFormat='From: {0}'}"/>
+                            <TextBlock FontSize="15" Text="{Binding Path=SelectedTour.To, StringFormat='To: {0}'}"/>
+                            <TextBlock FontSize="15" Text="{Binding Path=SelectedTour.TransportType, StringFormat='Transportation Type: {0}'}"/>
+                            <TextBlock FontSize="15" Text="{Binding Path=SelectedTour.Distance, StringFormat='Distance: {0}km'}"/>
+                            <TextBlock FontSize="15" Text="{Binding Path=SelectedTour.EstimatedTime, StringFormat='Estimated time: {0}'}"/>
+                            <!--<TextBlock FontSize="15" Text="{Binding ConvertTimeToFormattedString, StringFormat='Estimated time: {0}'}"/>-->
                         </StackPanel>
 
                     </TabItem>

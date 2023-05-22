@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using Tour_Planner.Model.Structs;
 using System.Drawing;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
@@ -15,6 +16,7 @@ namespace Tour_Planner.BL {
         private readonly ILoggerWrapper _logger = LoggerFactory.GetLogger(typeof(MapCreator));
         public async Task<TourCreation> CreateMap(string from, string to, Transport transportType) {
             TourCreation res = new TourCreation();
+            // TODO: HIDE KEY IN CONFIG
             var key = "puPOsmfIq48rX6ia0nDeC5VBwr8wX3Po";
 
             var transportTypeString = transportType.ToString();
@@ -24,7 +26,14 @@ namespace Tour_Planner.BL {
             var response = await client.GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
             var rootNode = JsonNode.Parse(content);
+            
+            if (rootNode["route"]["routeError"] != null) {
+                _logger.Error("MapQuest API returned an error, route not possible." + rootNode["route"]["routeError"]["message"]);
+                throw new Exception(rootNode["route"]["routeError"]["message"].ToString());
+            }
+            
             Console.WriteLine(rootNode?.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+            
 
             var sessionId = rootNode["route"]["sessionId"].ToString();
             var boundingBox = rootNode["route"]["boundingBox"];
