@@ -57,7 +57,7 @@ namespace Tour_Planner.DAL {
         }
 
         public void AddTourLog(TourLogs tl) {
-            // check if such tourlog already exists (i.e. same tour, same date)
+            // check if such tourlog already exists (i.e. same tour, same date and time)
             if (context.TourLogItems.Any(x => x.TourId == tl.TourId && x.DateTime == tl.DateTime)) {
                 throw new DbUpdateException($"TourLog for tour {tl.TourId} on date {tl.DateTime} already exists");
             }

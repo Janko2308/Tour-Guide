@@ -59,7 +59,8 @@ namespace Tour_Planner.BL {
         public void AddTourLog(TourLogs tl) {
             try {
                 logger.Info($"Beginning to add tour log for tour with id {tl.TourId}");
-                tl.DateTime = ConvertUTC(tl.DateTime);
+                //tl.DateTime = ConvertUTC(tl.DateTime);
+                tl.DateTime.ToUniversalTime();
                 DataManager.AddTourLog(tl);
                 logger.Info($"Tour log added successfully");
             }

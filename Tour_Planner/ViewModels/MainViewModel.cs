@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +23,11 @@ namespace Tour_Planner.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private TourItem selectedTour;
+        private ObservableCollection<TourItem> filteredTours;
+        private ObservableCollection<TourItem> allTours;
+
+        public ObservableCollection<TourItem> Tours { get; set; }
+        public ObservableCollection<TourLogs> TourLogs { get; set; }
 
         public TourItem SelectedTour {
             get => selectedTour;
@@ -40,11 +47,30 @@ namespace Tour_Planner.ViewModels
             }
         }
 
+        public ObservableCollection<TourItem> FilteredTours { 
+            get => filteredTours;
+            set { 
+                filteredTours = value;
+            }
+        }
+
+        private void OnSearchRequested(object sender, string searchText)
+        {
+            this.Tours = this.allTours;
+            ObservableCollection<TourItem> filteredTours = new ObservableCollection<TourItem>(this.Tours.Where(tour => tour.Name.Contains(searchText)));
+            if(filteredTours.Count != 0) {
+                this.Tours = filteredTours;
+            }
+            OnPropertyChanged(nameof(Tours));
+        }
+
         public MainViewModel(AddSearchBarViewModel asbVM, AddNewTourViewModel antVM, TourManager bl) {
             this.addSearchBarVM = asbVM;
             this.addNewTourVM = antVM;
             this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+            this.allTours = new ObservableCollection<TourItem>(bl.GetTours());
             this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+            this.addSearchBarVM.SearchRequested += OnSearchRequested;
             // this.selectedTour is equal if this.Tours contain no entries then empty, else this.Tours[0]
             this.selectedTour = this.Tours.FirstOrDefault();
             this.selectedTourLog = this.TourLogs.FirstOrDefault();
@@ -137,7 +163,12 @@ namespace Tour_Planner.ViewModels
                 this.selectedTour = this.Tours.FirstOrDefault();
             });
         }
-       
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
 
         public ICommand ExecuteCommandOpenNewTour { get; }
         public ICommand ExecuteCommandOpenNewTourLog { get; }
@@ -147,8 +178,7 @@ namespace Tour_Planner.ViewModels
         public ICommand ExecuteCommandDeleteThisTourLog { get; }
         public ICommand TemporaryButton { get; }
 
-        public ObservableCollection<TourItem> Tours { get; set; }
-        public ObservableCollection<TourLogs> TourLogs { get; set; }
+        
 
     }
 }
