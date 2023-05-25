@@ -6,7 +6,7 @@ namespace Tour_Planner.BL {
     public class TourManager {
         private IDataManager DataManager;
         private MapCreator MapCreator = new();
-        private readonly ILoggerWrapper logger = LoggerFactory.GetLogger(typeof(TourManager));
+        private readonly ILoggerWrapper logger = LoggerFactory.GetLogger();
 
         public TourManager(IDataManager dataManager) {
             this.DataManager = dataManager;
