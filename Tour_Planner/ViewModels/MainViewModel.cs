@@ -164,11 +164,9 @@ namespace Tour_Planner.ViewModels
             });
         }
 
-<<<<<<< HEAD
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-=======
+        }
         public object ConvertTimeToFormattedString(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
             if (value is TimeSpan timeSpan) {
                 string days = timeSpan.Days.ToString("00");
@@ -180,7 +178,6 @@ namespace Tour_Planner.ViewModels
             }
 
             return string.Empty;
->>>>>>> 825e773c58e43723776065add177deb9263972d3
         }
 
 

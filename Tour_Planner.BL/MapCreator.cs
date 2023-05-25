@@ -10,14 +10,16 @@ using Tour_Planner.Model.Structs;
 using System.Drawing;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Tour_Planner.Model.Enums;
+using System.Configuration;
 
 namespace Tour_Planner.BL {
     public class MapCreator {
         private readonly ILoggerWrapper _logger = LoggerFactory.GetLogger(typeof(MapCreator));
+        
         public async Task<TourCreation> CreateMap(string from, string to, Transport transportType) {
             TourCreation res = new TourCreation();
             // TODO: HIDE KEY IN CONFIG
-            var key = "puPOsmfIq48rX6ia0nDeC5VBwr8wX3Po";
+            var key = ConfigurationManager.AppSettings["MapQuestKey"];
 
             var transportTypeString = transportType.ToString();
             var url = $"http://www.mapquestapi.com/directions/v2/route?key={key}&from={from}&to={to}&unit=k&routeType={transportTypeString}";
