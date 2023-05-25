@@ -8,8 +8,15 @@ using log4net.Config;
 
 namespace Tour_Planner.BL {
     public class LoggerFactory {
+        
+        private static bool isConfigured = false;
         public static ILoggerWrapper GetLogger(Type type) {
-            log4net.ILog logger = log4net.LogManager.GetLogger(type);
+            if (!isConfigured) {
+                XmlConfigurator.Configure();
+                isConfigured = true;
+            }
+            
+            ILog logger = LogManager.GetLogger(type);
             return new LoggerWrapper(logger);
         }
     }
