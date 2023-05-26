@@ -23,9 +23,13 @@ namespace Tour_Planner.ViewModels {
             
             ExecuteCommandAdd = new RelayCommand(param => {
                 try {
+                    MessageBox.Show("Please wait...");
                     bl.AddTour(Tour);
-                    /*Window current = Window.GetWindow((AddNewTour)param);
-                    current.Close();*/
+                    foreach (Window window in Application.Current.Windows) {
+                        if (window.DataContext == this) {
+                            window.Close();
+                        }
+                    }
                 }
                 catch(Exception e) {
                     MessageBox.Show(e.Message);
@@ -40,17 +44,17 @@ namespace Tour_Planner.ViewModels {
 
             ExecuteCommandEdit = new RelayCommand(param => {
                 try {
+                    MessageBox.Show("Please wait...");
                     bl.EditTour(Tour);
-                    /*Window current = Window.GetWindow((AddNewTour)param);
-                    current.Close();*/
+                    foreach (Window window in Application.Current.Windows) {
+                        if (window.DataContext == this) {
+                            window.Close();
+                        }
+                    }
                 }
                 catch(Exception e) {
                     MessageBox.Show(e.Message);
                 }
-                // TODO: Command for edit, and overthink how AddNewTour works
-                // suggestion: it is the same form, but with different buttons
-                // one with "Add" should call addtour from bl and add a new tour to the db
-                // other one with "Edit" should call edittour and edit the tour which it gets at the beginning
             });
         }
         

@@ -25,7 +25,13 @@ namespace Tour_Planner.ViewModels {
 
             ExecuteCommandAdd = new RelayCommand(param => {
                 try {
+                    MessageBox.Show("Please wait...");
                     bl.AddTourLog(TourLog);
+                    foreach (Window window in Application.Current.Windows) {
+                        if (window.DataContext == this) {
+                            window.Close();
+                        }
+                    }
                 }
                 catch(Exception e) {
                     MessageBox.Show(e.Message);
@@ -40,7 +46,13 @@ namespace Tour_Planner.ViewModels {
 
             ExecuteCommandEdit = new RelayCommand(param => {
                 try {
+                    MessageBox.Show("Please wait...");
                     bl.EditTourLog(TourLog);
+                    foreach (Window window in Application.Current.Windows) {
+                        if (window.DataContext == this) {
+                            window.Close();
+                        }
+                    }
                 }
                 catch(Exception e) {
                     MessageBox.Show(e.Message);
