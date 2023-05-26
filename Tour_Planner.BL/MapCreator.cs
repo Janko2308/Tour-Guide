@@ -14,7 +14,7 @@ using System.Configuration;
 
 namespace Tour_Planner.BL {
     public class MapCreator {
-        private readonly ILoggerWrapper _logger = LoggerFactory.GetLogger(typeof(MapCreator));
+        private readonly ILoggerWrapper _logger = LoggerFactory.GetLogger();
         
         public async Task<TourCreation> CreateMap(string from, string to, Transport transportType) {
             TourCreation res = new TourCreation();
