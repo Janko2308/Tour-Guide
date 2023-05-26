@@ -19,6 +19,7 @@ namespace Tour_Planner.BL {
             var logger = log4net.LogManager.GetLogger(caller);  // System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
             return new LoggerWrapper(logger);
         }
+        
         public LoggerWrapper(log4net.ILog log) {
             _log = log;
         }
