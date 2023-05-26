@@ -1,4 +1,11 @@
-﻿using Tour_Planner.DAL;
+﻿using iText.IO.Font.Constants;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using Tour_Planner.DAL;
 using Tour_Planner.Model;
 using Tour_Planner.Model.Structs;
 
@@ -90,6 +97,54 @@ namespace Tour_Planner.BL {
             catch (Exception e) {
                 logger.Fatal("Failed to delete tour log", e);
             }
+        }
+
+        public void ReportSpecificTour(TourItem t) {
+            logger.Info($"Creating tour report for tour {t.Name}.");
+
+            string TARGET_PDF = $"report_{t.Name}.pdf";
+            
+            PdfWriter writer = new PdfWriter(TARGET_PDF);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            Paragraph header = new Paragraph($"Tour Report for {t.Name}")
+                .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                .SetFontSize(20);
+            document.Add(header);
+
+            Paragraph tourInfo = new Paragraph($"From {t.From} to {t.To} by {t.TransportType}.\n" +
+                                               $"Distance: {t.Distance} km\n" +
+                                               $"Estimated time: {t.EstimatedTime} min\n" +
+                                               $"Description: {t.Description}")
+                .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN))
+                .SetFontSize(12);
+            document.Add(tourInfo);
+
+            Paragraph tourLogsHeader = new Paragraph("Tour Logs")
+                .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                .SetFontSize(16);
+            document.Add(tourLogsHeader);
+
+            Paragraph temp = new Paragraph("Temporarily no tour logs.");
+            document.Add(temp);
+
+            document.Close();
+
+            logger.Info("Finished generating PDF...");
+            logger.Info("Opening PDF...");
+
+            using Process fileopener = new Process();
+            fileopener.StartInfo.FileName = "explorer";
+            fileopener.StartInfo.Arguments = $"\"{TARGET_PDF}\"";
+            fileopener.Start();
+
+        }
+
+        public void ReportAllTours(ObservableCollection<TourItem> ts) {
+            logger.Info("Creating tour report for all tours.");
+
+            string TARGET_PDF = "collective_report.pdf";
         }
 
         public IEnumerable<TourItem> GetTours() {

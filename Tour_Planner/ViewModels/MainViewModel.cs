@@ -154,13 +154,13 @@ namespace Tour_Planner.ViewModels
                 }
             });
 
-            TemporaryButton = new RelayCommand(param => {
-                Tours.Clear();
-                selectedTour = null;
-                TourLogs.Clear();
-                this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
-                this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
-                this.selectedTour = this.Tours.FirstOrDefault();
+            ExecuteCommandGenerateReportSpecificTour = new RelayCommand(param => {
+                try {
+                    bl.ReportSpecificTour(SelectedTour);
+                }
+                catch (Exception e) {
+                    MessageBox.Show(e.Message);
+                }
             });
         }
 
@@ -187,7 +187,7 @@ namespace Tour_Planner.ViewModels
         public ICommand ExecuteCommandOpenEditTourLog { get; }
         public ICommand ExecuteCommandDeleteThisTour { get; }
         public ICommand ExecuteCommandDeleteThisTourLog { get; }
-        public ICommand TemporaryButton { get; }
+        public ICommand ExecuteCommandGenerateReportSpecificTour { get; }
 
         
 
