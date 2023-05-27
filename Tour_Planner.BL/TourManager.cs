@@ -106,6 +106,8 @@ namespace Tour_Planner.BL {
             logger.Info($"Creating tour report for tour {t.Name}.");
 
             string TARGET_PDF = $"report_{t.Name}.pdf";
+
+            TARGET_PDF.Replace(" ", "_");
             
             PdfWriter writer = new PdfWriter(TARGET_PDF);
             PdfDocument pdf = new PdfDocument(writer);
