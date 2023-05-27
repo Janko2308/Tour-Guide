@@ -5,9 +5,12 @@ using iText.Layout;
 using iText.Layout.Element;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Org.BouncyCastle.Security;
+using Org.BouncyCastle.Crypto;
 using Tour_Planner.DAL;
 using Tour_Planner.Model;
 using Tour_Planner.Model.Structs;
+using iText.IO.Image;
 
 namespace Tour_Planner.BL {
     public class TourManager {
@@ -120,6 +123,9 @@ namespace Tour_Planner.BL {
                 .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN))
                 .SetFontSize(12);
             document.Add(tourInfo);
+            
+            Image tourImage = new Image(ImageDataFactory.Create(t.TourInfo));
+            document.Add(tourImage);
 
             Paragraph tourLogsHeader = new Paragraph("Tour Logs")
                 .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
@@ -145,6 +151,48 @@ namespace Tour_Planner.BL {
             logger.Info("Creating tour report for all tours.");
 
             string TARGET_PDF = "collective_report.pdf";
+
+            PdfWriter writer = new PdfWriter(TARGET_PDF);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            Paragraph header = new Paragraph("Tour Report for all tours")
+                .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                .SetFontSize(20);
+            document.Add(header);
+
+            foreach (TourItem t in ts) {
+                Paragraph tourHeader = new Paragraph($"Tour: {t.Name}")
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                    .SetFontSize(18);
+                document.Add(tourHeader);
+
+                Paragraph tourInfo = new Paragraph($"From {t.From} to {t.To} by {t.TransportType}.\n" +
+                                                   $"Distance: {t.Distance} km\n" +
+                                                   $"Estimated time: {t.EstimatedTime} min\n" +
+                                                   $"Description: {t.Description}")
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN))
+                    .SetFontSize(12);
+                document.Add(tourInfo);
+
+                Paragraph tourLogsHeader = new Paragraph("Tour Logs")
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                    .SetFontSize(16);
+                document.Add(tourLogsHeader);
+
+                Paragraph temp = new Paragraph("Temporarily no tour logs.");
+                document.Add(temp);
+            }
+
+            document.Close();
+            
+            logger.Info("Finished generating PDF...");
+            logger.Info("Opening PDF...");
+
+            using Process fileopener = new Process();
+            fileopener.StartInfo.FileName = "explorer";
+            fileopener.StartInfo.Arguments = $"\"{TARGET_PDF}\"";
+            fileopener.Start();
         }
 
         public IEnumerable<TourItem> GetTours() {

@@ -30,7 +30,7 @@
                     <MenuItem Header="Export .csv"/>
                 </MenuItem>
                 <MenuItem Header="Tour report of current tour" Command="{Binding Path=ExecuteCommandGenerateReportSpecificTour}"/>
-                <MenuItem Header="Summarize report"/>
+                <MenuItem Header="Summarize report" Command="{Binding Path=ExecuteCommandGenerateReportAllTours}"/>
                 <MenuItem Header="Help" />
             </Menu>
             <local:AddSearchBar x:Name="AddSearchBar"/>
