@@ -75,9 +75,9 @@ namespace Tour_Planner.BL {
         public void ReportSpecificTour(TourItem t) {
             logger.Info($"Creating tour report for tour {t.Name}.");
 
-            string TARGET_PDF = $"report_{t.Name}.pdf";
-
-            TARGET_PDF.Replace(" ", "_");
+            string filename = t.Name.ToLower().Replace(" ", "_");
+            
+            string TARGET_PDF = $"report_{filename}.pdf";
             
             PdfWriter writer = new PdfWriter(TARGET_PDF);
             PdfDocument pdf = new PdfDocument(writer);

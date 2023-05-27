@@ -34,7 +34,7 @@ namespace Tour_Planner.ViewModels {
                     }
                 }
                 
-                (Exception e) {
+                catch (Exception e) {
                     MessageBox.Show(e.Message);
                 }
             });
