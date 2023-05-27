@@ -29,8 +29,8 @@
                     <MenuItem Header="Import .csv"/>
                     <MenuItem Header="Export .csv"/>
                 </MenuItem>
-                <MenuItem Header="Tour report of current tour"/>
-                <MenuItem Header="Summarize report"/>
+                <MenuItem Header="Tour report of current tour" Command="{Binding Path=ExecuteCommandGenerateReportSpecificTour}"/>
+                <MenuItem Header="Summarize report" Command="{Binding Path=ExecuteCommandGenerateReportAllTours}"/>
                 <MenuItem Header="Help" />
             </Menu>
             <local:AddSearchBar x:Name="AddSearchBar"/>
@@ -90,7 +90,6 @@
                         <StackPanel>
                             <Button Content="_Edit this tour" Command="{Binding Path=ExecuteCommandOpenEditTour}"/>
                             <Button Content="_Delete this tour" Command="{Binding Path=ExecuteCommandDeleteThisTour}"/>
-                            <Button Content="Temporary refresh button" Command="{Binding Path=TemporaryButton}"/>
                         </StackPanel>
                     </TabItem>
                 </TabControl>
