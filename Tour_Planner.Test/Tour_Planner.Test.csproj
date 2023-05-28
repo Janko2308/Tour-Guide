@@ -16,4 +16,8 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tour_Planner.Model\Tour_Planner.Model.csproj" />
+  </ItemGroup>
+
 </Project>
