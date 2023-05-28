@@ -23,6 +23,11 @@ namespace Tour_Planner.ViewModels {
             
             ExecuteCommandAdd = new RelayCommand(param => {
                 try {
+                    if (String.IsNullOrEmpty(Tour.Name) || String.IsNullOrEmpty(Tour.Description) || String.IsNullOrEmpty(Tour.From) || 
+                        String.IsNullOrEmpty(Tour.To)) {
+                            throw new Exception("All fields must be filled in!");
+                    }
+                    
                     MessageBox.Show("Please wait...");
                     bl.AddTour(Tour);
                     foreach (Window window in Application.Current.Windows) {
@@ -44,6 +49,11 @@ namespace Tour_Planner.ViewModels {
 
             ExecuteCommandEdit = new RelayCommand(param => {
                 try {
+                    if (String.IsNullOrEmpty(Tour.Name) || String.IsNullOrEmpty(Tour.Description) || String.IsNullOrEmpty(Tour.From) ||
+                        String.IsNullOrEmpty(Tour.To)) {
+                        throw new Exception("All fields must be filled in!");
+                    }
+                    
                     MessageBox.Show("Please wait...");
                     bl.EditTour(Tour);
                     foreach (Window window in Application.Current.Windows) {

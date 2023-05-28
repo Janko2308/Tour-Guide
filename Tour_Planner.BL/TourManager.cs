@@ -133,8 +133,9 @@ namespace Tour_Planner.BL {
                 .SetFontSize(20);
             document.Add(header);
 
+            int i = 1;
             foreach (TourItem t in ts) {
-                Paragraph tourHeader = new Paragraph($"Tour: {t.Name}")
+                Paragraph tourHeader = new Paragraph($"{i}. Tour: {t.Name}")
                     .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
                     .SetFontSize(18);
                 document.Add(tourHeader);
@@ -154,6 +155,7 @@ namespace Tour_Planner.BL {
 
                 Paragraph temp = new Paragraph("Temporarily no tour logs.");
                 document.Add(temp);
+                i++;
             }
 
             document.Close();

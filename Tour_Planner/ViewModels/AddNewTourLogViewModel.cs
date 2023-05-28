@@ -16,7 +16,6 @@ namespace Tour_Planner.ViewModels {
         public ICommand ExecuteCommandEdit { get;}
         public bool IsEdited { get; private set; } = false;
         public bool IsAdded { get; private set; } = false;
-        // public event EventHandler<TourLogs> AddTourLogButtonClicked;
 
         public AddNewTourLogViewModel(TourManager bl, int TourId) {
             this.TourLog.TourId = TourId;
@@ -25,6 +24,10 @@ namespace Tour_Planner.ViewModels {
 
             ExecuteCommandAdd = new RelayCommand(param => {
                 try {
+                    if (TourLog.TotalTime == TimeSpan.Zero || TourLog.Rating < 0 || String.IsNullOrEmpty(TourLog.Comment)) {
+                        throw new ArgumentNullException("Please fill all fields!");
+                    }
+                    
                     MessageBox.Show("Please wait...");
                     bl.AddTourLog(TourLog);
                     foreach (Window window in Application.Current.Windows) {
@@ -47,6 +50,14 @@ namespace Tour_Planner.ViewModels {
 
             ExecuteCommandEdit = new RelayCommand(param => {
                 try {
+                    if (TourLog.TotalTime == TimeSpan.Zero || TourLog.Rating < 0 || String.IsNullOrEmpty(TourLog.Comment)) {
+                        throw new ArgumentNullException("Please fill all fields!");
+                    }
+
+                    if (!TimeSpan.TryParse(TourLog.TotalTime.ToString(), out TimeSpan time)) {
+                        throw new ArgumentException("Please enter a valid time!");
+                    }
+
                     MessageBox.Show("Please wait...");
                     bl.EditTourLog(TourLog);
                     foreach (Window window in Application.Current.Windows) {
