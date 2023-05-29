@@ -26,8 +26,8 @@
         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
-                    <MenuItem Header="Import .csv"/>
-                    <MenuItem Header="Export .csv"/>
+                    <MenuItem Header="Import .csv" Command="{Binding Path=ExecuteCommandImportCSV}"/>
+                    <MenuItem Header="Export .csv" Command="{Binding Path=ExecuteCommandExportCSV}"/>
                 </MenuItem>
                 <MenuItem Header="Tour report of current tour" Command="{Binding Path=ExecuteCommandGenerateReportSpecificTour}"/>
                 <MenuItem Header="Summarize report" Command="{Binding Path=ExecuteCommandGenerateReportAllTours}"/>

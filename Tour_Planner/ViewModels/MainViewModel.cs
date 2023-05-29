@@ -15,6 +15,7 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Crypto;
 using Tour_Planner.BL;
 using Tour_Planner.Model;
+using Microsoft.Win32;
 
 namespace Tour_Planner.ViewModels
 {
@@ -30,6 +31,10 @@ namespace Tour_Planner.ViewModels
 
         public ObservableCollection<TourItem> Tours { get; set; }
         public ObservableCollection<TourLogs> TourLogs { get; set; }
+
+        public string filename;
+        
+        public string Filename { get; private set; }
 
         public TourItem SelectedTour {
             get => selectedTour;
@@ -48,7 +53,7 @@ namespace Tour_Planner.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTourLog)));
             }
         }
-
+        
         public ObservableCollection<TourItem> FilteredTours { 
             get => filteredTours;
             set { 
@@ -173,6 +178,35 @@ namespace Tour_Planner.ViewModels
                     MessageBox.Show(e.Message);
                 }
             });
+
+            ExecuteCommandExportCSV = new RelayCommand(param => {
+                try {
+                    bl.ExportToursToCSV();
+                    MessageBox.Show("Exported successfully!");
+                }
+                catch (Exception e) {
+                    MessageBox.Show(e.Message);
+                }
+            });
+
+            ExecuteCommandImportCSV = new RelayCommand(param => {
+                try {
+                    MessageBox.Show("Remember, this csv cannot have any data considering distance, " +
+                        "map or estimated time - the app adds the tour as new, " +
+                        "and as such creates this data itself");
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    openFileDialog.Filter = "CSV files (*.csv)|*.csv";
+
+                    if (openFileDialog.ShowDialog() == true) {
+                        string selectedFile = openFileDialog.FileName;
+                        bl.ImportToursFromCSV(selectedFile);
+                        MessageBox.Show("Tours added successfully!");
+                    }
+                }
+                catch (Exception e) {
+                    MessageBox.Show(e.Message);
+                }
+            });
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null) {
@@ -200,6 +234,8 @@ namespace Tour_Planner.ViewModels
         public ICommand ExecuteCommandDeleteThisTourLog { get; }
         public ICommand ExecuteCommandGenerateReportSpecificTour { get; }
         public ICommand ExecuteCommandGenerateReportAllTours { get; }
+        public ICommand ExecuteCommandExportCSV { get; }
+        public ICommand ExecuteCommandImportCSV { get; }
 
     }
 }
