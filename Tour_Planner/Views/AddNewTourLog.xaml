@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Tour_Planner.Views"
         mc:Ignorable="d"
         Title="AddNewTourLog" Height="300" Width="600">
@@ -31,7 +32,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Date and Time: "/>
             <!-- TODO: Add Date and Time -->
-            <DatePicker Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Name="txtDateTime" Text="{Binding Path=TourLog.DateTime}"/>
+            <xctk:DateTimePicker Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" x:Name="myDateTimePicker" Format="Custom" FormatString="yyyy-MM-dd HH:mm" Value="{Binding Path=TourLog.DateTime}" />
 
             <Label Grid.Row="1" Grid.Column="0" Content="Difficulty: "/>
             <ComboBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" Name="cmbDifficulty" Text="{Binding Path=TourLog.Difficulty}">

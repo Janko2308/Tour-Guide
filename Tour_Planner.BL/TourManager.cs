@@ -53,15 +53,17 @@ namespace Tour_Planner.BL {
 
         public void AddTourLog(TourLogs tl) {
             logger.Info($"Beginning to add tour log for tour with id {tl.TourId}");
-            //tl.DateTime = ConvertUTC(tl.DateTime);
-            tl.DateTime.ToUniversalTime();
+
+            tl.DateTime = tl.DateTime.ToUniversalTime();
             DataManager.AddTourLog(tl);
             logger.Info($"Tour log added successfully");
         }
 
         public void EditTourLog(TourLogs tl) {
             logger.Info($"Beginning to edit tour log with id {tl.Id}");
-            tl.DateTime = ConvertUTC(tl.DateTime);
+            if(tl.DateTime.Kind != DateTimeKind.Utc) {
+                tl.DateTime = tl.DateTime.ToUniversalTime();
+            }
             DataManager.EditTourLog(tl);
             logger.Info("Tour log edited successfully");
         }
