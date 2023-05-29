@@ -212,10 +212,10 @@ namespace Tour_Planner.BL {
 
                 // if item t not found in allItems proceed with DataManager.AddTour(t)
                 if (!allItems.Any(x => x.Name == t.Name)) {
-                    logger.Info($"Adding tour {t.Name}");
+                    logger.Info($"Importing tour {t.Name}");
                     AddTour(t);
                 } else {
-                    logger.Info($"Omitted adding existing tour item! ({t.Name})");
+                    logger.Info($"Omitted importing existing tour item! ({t.Name})");
                 }
             }
         }
