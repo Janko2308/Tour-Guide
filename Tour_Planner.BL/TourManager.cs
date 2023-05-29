@@ -196,6 +196,7 @@ namespace Tour_Planner.BL {
         }
 
         public void ImportToursFromCSV(string FilePath) {
+            logger.Info("Importing tours from CSV...");
             string[] lines = File.ReadAllLines(FilePath);
             IEnumerable<TourItem> allItems = DataManager.GetTours();
 
@@ -211,15 +212,16 @@ namespace Tour_Planner.BL {
 
                 // if item t not found in allItems proceed with DataManager.AddTour(t)
                 if (!allItems.Any(x => x.Name == t.Name)) {
-                    logger.Info("Adding tour");
+                    logger.Info($"Adding tour {t.Name}");
                     AddTour(t);
                 } else {
-                    logger.Info("Omitted adding existing tour item!");
+                    logger.Info($"Omitted adding existing tour item! ({t.Name})");
                 }
             }
         }
 
         public void ExportToursToCSV() {
+            logger.Info("Exporting tours to CSV...");
             logger.Info("Getting tours from DB");
             IEnumerable<TourItem> tours = DataManager.GetTours();
 
