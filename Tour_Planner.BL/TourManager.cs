@@ -11,6 +11,11 @@ using Tour_Planner.DAL;
 using Tour_Planner.Model;
 using Tour_Planner.Model.Structs;
 using iText.IO.Image;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1;
+using System.Net;
+using Tour_Planner.Model.Enums;
 
 namespace Tour_Planner.BL {
     public class TourManager {
@@ -53,8 +58,8 @@ namespace Tour_Planner.BL {
 
         public void AddTourLog(TourLogs tl) {
             logger.Info($"Beginning to add tour log for tour with id {tl.TourId}");
-            //tl.DateTime = ConvertUTC(tl.DateTime);
-            tl.DateTime.ToUniversalTime();
+            tl.DateTime = ConvertUTC(tl.DateTime);
+            //tl.DateTime.ToUniversalTime();
             DataManager.AddTourLog(tl);
             logger.Info($"Tour log added successfully");
         }
@@ -188,6 +193,52 @@ namespace Tour_Planner.BL {
         public DateTime ConvertLocal(DateTime dt) {
             logger.Info("Converting local...");
             return TimeZoneInfo.ConvertTimeToUtc(dt, TimeZoneInfo.Local);
+        }
+
+        public void ImportToursFromCSV(string FilePath) {
+            logger.Info("Importing tours from CSV...");
+            string[] lines = File.ReadAllLines(FilePath);
+            IEnumerable<TourItem> allItems = DataManager.GetTours();
+
+            for (int i = 1; i < lines.Length; i++) {
+                TourItem t = new TourItem();
+                string[] content = lines[i].Split(',');
+
+                t.Name = content[0];
+                t.Description = content[1];
+                t.From = content[2];
+                t.To = content[3];
+                t.TransportType = (Transport)Enum.Parse(typeof(Transport), content[4]);
+
+                // if item t not found in allItems proceed with DataManager.AddTour(t)
+                if (!allItems.Any(x => x.Name == t.Name)) {
+                    logger.Info($"Importing tour {t.Name}");
+                    AddTour(t);
+                } else {
+                    logger.Info($"Omitted importing existing tour item! ({t.Name})");
+                }
+            }
+        }
+
+        public void ExportToursToCSV() {
+            logger.Info("Exporting tours to CSV...");
+            logger.Info("Getting tours from DB");
+            IEnumerable<TourItem> tours = DataManager.GetTours();
+
+            if (tours.Count() == 0) {
+                logger.Error("No tours found!");
+                return;
+            }
+
+            string filepath = "exported_tours.csv";
+            StringBuilder csvData = new StringBuilder();
+            csvData.Append("Name,Description,From,To,TransportType,TourInfo,Distance,EstimatedTime\n");
+
+            foreach (TourItem t in tours) {
+                csvData.Append($"{t.Name},{t.Description},{t.From},{t.To},{t.TransportType},{t.TourInfo},{t.Distance},{t.EstimatedTime}\n");
+            }
+
+            File.WriteAllText(filepath, csvData.ToString());
         }
     }
 }
