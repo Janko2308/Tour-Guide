@@ -28,8 +28,8 @@ namespace Tour_Planner.ViewModels {
                         throw new ArgumentNullException("Please fill all fields!");
                     }
                     
-                    MessageBox.Show("Please wait...");
                     bl.AddTourLog(TourLog);
+                    MessageBox.Show("TourLog added successfully");
                     foreach (Window window in Application.Current.Windows) {
                         if (window.DataContext == this) {
                             window.Close();
@@ -58,8 +58,8 @@ namespace Tour_Planner.ViewModels {
                         throw new ArgumentException("Please enter a valid time!");
                     }
 
-                    MessageBox.Show("Please wait...");
                     bl.EditTourLog(TourLog);
+                    MessageBox.Show("Tour log edited successfully");
                     foreach (Window window in Application.Current.Windows) {
                         if (window.DataContext == this) {
                             window.Close();
