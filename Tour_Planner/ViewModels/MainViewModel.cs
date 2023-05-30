@@ -16,6 +16,7 @@ using Org.BouncyCastle.Crypto;
 using Tour_Planner.BL;
 using Tour_Planner.Model;
 using Microsoft.Win32;
+using log4net;
 
 namespace Tour_Planner.ViewModels
 {
@@ -38,7 +39,15 @@ namespace Tour_Planner.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tours)));
             } 
         }
-        public ObservableCollection<TourLogs> TourLogs { get; set; }
+
+        private ObservableCollection<TourLogs> tourLogs;
+        public ObservableCollection<TourLogs> TourLogs {
+            get => tourLogs;
+            set {
+                tourLogs = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TourLogs)));
+            }
+        }
 
         public string filename;
         
@@ -213,6 +222,7 @@ namespace Tour_Planner.ViewModels
                     if (openFileDialog.ShowDialog() == true) {
                         string selectedFile = openFileDialog.FileName;
                         bl.ImportToursFromCSV(selectedFile);
+                        bl.Saved += (sender, args) => this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
                         MessageBox.Show("Tours added successfully!");
                     }
                 }

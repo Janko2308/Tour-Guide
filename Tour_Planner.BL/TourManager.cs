@@ -22,6 +22,7 @@ namespace Tour_Planner.BL {
         private IDataManager DataManager;
         private MapCreator MapCreator = new();
         private readonly ILoggerWrapper logger = LoggerFactory.GetLogger();
+        public event EventHandler? Saved;
 
         public TourManager(IDataManager dataManager) {
             this.DataManager = dataManager;
@@ -213,7 +214,8 @@ namespace Tour_Planner.BL {
                 // if item t not found in allItems proceed with DataManager.AddTour(t)
                 if (!allItems.Any(x => x.Name == t.Name)) {
                     logger.Info($"Importing tour {t.Name}");
-                    AddTour(t);
+                    //AddTour(t);
+                    AddTour(t).ContinueWith(task => Saved?.Invoke(this, EventArgs.Empty));
                 } else {
                     logger.Info($"Omitted importing existing tour item! ({t.Name})");
                 }
