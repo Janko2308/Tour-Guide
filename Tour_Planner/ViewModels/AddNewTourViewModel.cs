@@ -16,6 +16,7 @@ namespace Tour_Planner.ViewModels {
         public TourItem Tour { get; private set; } = new();
         public bool IsEdited { get; private set; } = false;
         public bool IsAdded { get; private set; } = false;
+        public event EventHandler? Saved;
 
         public AddNewTourViewModel(TourManager bl) {
             this.bl = bl;
@@ -28,8 +29,7 @@ namespace Tour_Planner.ViewModels {
                             throw new Exception("All fields must be filled in!");
                     }
                     
-                    MessageBox.Show("Please wait...");
-                    bl.AddTour(Tour);
+                    bl.AddTour(Tour).ContinueWith(task => Saved?.Invoke(this, EventArgs.Empty));
                     foreach (Window window in Application.Current.Windows) {
                         if (window.DataContext == this) {
                             window.Close();

@@ -24,12 +24,20 @@ namespace Tour_Planner.ViewModels
         private AddNewTourViewModel addNewTourVM;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        public EventHandler? DbChanged;
 
         private TourItem selectedTour;
+        private ObservableCollection<TourItem> tours;
         private ObservableCollection<TourItem> filteredTours;
         private ObservableCollection<TourItem> allTours;
 
-        public ObservableCollection<TourItem> Tours { get; set; }
+        public ObservableCollection<TourItem> Tours { 
+            get => tours; 
+            set {
+                tours = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tours)));
+            } 
+        }
         public ObservableCollection<TourLogs> TourLogs { get; set; }
 
         public string filename;
@@ -82,7 +90,11 @@ namespace Tour_Planner.ViewModels
             this.selectedTour = this.Tours.FirstOrDefault();
             this.selectedTourLog = this.TourLogs.FirstOrDefault();
 
-            ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
+            ExecuteCommandOpenNewTour = new RelayCommand(param => {
+                var dialog = new Views.AddNewTour();
+                ((AddNewTourViewModel)dialog.DataContext).Saved += (sender, args) => this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+                dialog.ShowDialog();
+            });
             
             ExecuteCommandOpenNewTourLog = new RelayCommand(param => {
                 try {
@@ -136,6 +148,7 @@ namespace Tour_Planner.ViewModels
                         bl.DeleteTour(SelectedTour);
                         SelectedTour = Tours.FirstOrDefault();
                     }
+                    Tours = new ObservableCollection<TourItem>(bl.GetTours());
                 }
                 catch (Exception e) {
                     Console.WriteLine(e.Message);

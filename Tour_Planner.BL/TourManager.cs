@@ -27,15 +27,14 @@ namespace Tour_Planner.BL {
             this.DataManager = dataManager;
         }
 
-        public void AddTour(TourItem t) {
+        public async Task AddTour(TourItem t) {
             logger.Info("Beginning to add a tour...");
-            MapCreator.CreateMap(t.From, t.To, t.TransportType).ContinueWith(res => {
-                t.Distance = res.Result.Distance;
-                t.EstimatedTime = res.Result.EstimatedTime;
-                t.TourInfo = res.Result.Picture;
-                DataManager.AddTour(t);
-                logger.Info("Tour added");
-            });
+            var tourcreation = await MapCreator.CreateMap(t.From, t.To, t.TransportType);
+            t.Distance = tourcreation.Distance;
+            t.EstimatedTime = tourcreation.EstimatedTime;
+            t.TourInfo = tourcreation.Picture;
+            DataManager.AddTour(t);
+            logger.Info("Tour added");
         }
 
 
