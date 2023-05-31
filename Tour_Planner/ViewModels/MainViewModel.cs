@@ -181,7 +181,7 @@ namespace Tour_Planner.ViewModels
 
             ExecuteCommandGenerateReportSpecificTour = new RelayCommand(param => {
                 try {
-                    bl.ReportSpecificTour(SelectedTour);
+                    bl.ReportSpecificTour(SelectedTour, TourLogs);
                 }
                 catch (Exception e) {
                     MessageBox.Show(e.Message);
@@ -190,7 +190,7 @@ namespace Tour_Planner.ViewModels
 
             ExecuteCommandGenerateReportAllTours = new RelayCommand(param => {
                 try {
-                    bl.ReportAllTours(Tours);
+                    bl.ReportAllTours(Tours, TourLogs);
                 }
                 catch (Exception e) {
                     MessageBox.Show(e.Message);
