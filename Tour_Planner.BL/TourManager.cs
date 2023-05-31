@@ -78,7 +78,7 @@ namespace Tour_Planner.BL {
             logger.Info("Tour log deleted successfully");
         }
 
-        public void ReportSpecificTour(TourItem t) {
+        public void ReportSpecificTour(TourItem t, ObservableCollection<TourLogs> tls) {
             logger.Info($"Creating tour report for tour {t.Name}.");
 
             string filename = t.Name.ToLower().Replace(" ", "_");
@@ -107,11 +107,27 @@ namespace Tour_Planner.BL {
 
             Paragraph tourLogsHeader = new Paragraph("Tour Logs")
                 .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
-                .SetFontSize(16);
+                .SetFontSize(20);
             document.Add(tourLogsHeader);
 
-            Paragraph temp = new Paragraph("Temporarily no tour logs.");
-            document.Add(temp);
+            int i = 1;
+            foreach (var log in tls) {
+                Paragraph tourLogHeader = new Paragraph($"{i}. Tourlog:")
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                    .SetFontSize(18);
+                document.Add(tourLogHeader);
+
+                Paragraph tourLog = new Paragraph($"Date: {log.DateTime}\n" +
+                                                  $"Comment: {log.Comment}\n" +
+                                                  $"Difficulty: {log.Difficulty}\n" +
+                                                  $"Total time: {log.TotalTime}\n" +
+                                                  $"Rating: {log.Rating}")
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN))
+                    .SetFontSize(12);
+                document.Add(tourLog);
+                
+                i++;
+            }
 
             document.Close();
 
@@ -125,7 +141,7 @@ namespace Tour_Planner.BL {
 
         }
 
-        public void ReportAllTours(ObservableCollection<TourItem> ts) {
+        public void ReportAllTours(ObservableCollection<TourItem> ts, ObservableCollection<TourLogs> tls) {
             logger.Info("Creating tour report for all tours.");
 
             string TARGET_PDF = "collective_report.pdf";
@@ -154,13 +170,18 @@ namespace Tour_Planner.BL {
                     .SetFontSize(12);
                 document.Add(tourInfo);
 
-                Paragraph tourLogsHeader = new Paragraph("Tour Logs")
+                Paragraph childFriendlinessHeader = new Paragraph("Child friendly?")
                     .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
                     .SetFontSize(16);
-                document.Add(tourLogsHeader);
+                document.Add(childFriendlinessHeader);
 
-                Paragraph temp = new Paragraph("Temporarily no tour logs.");
-                document.Add(temp);
+                ObservableCollection<TourLogs> tsTl = new ObservableCollection<TourLogs>();
+                foreach (var log in tls.Where(log => log.TourId == t.Id)) {
+                    tsTl.Add(log);
+                }
+                
+                Paragraph childFriendly = new Paragraph(isChildFriendly(tsTl) == true ? "Yes" : "No");
+                document.Add(childFriendly);
                 i++;
             }
 
@@ -173,6 +194,37 @@ namespace Tour_Planner.BL {
             fileopener.StartInfo.FileName = "explorer";
             fileopener.StartInfo.Arguments = $"\"{TARGET_PDF}\"";
             fileopener.Start();
+        }
+
+        private bool isChildFriendly(ObservableCollection<TourLogs> tls) {
+            int items = tls.Count;
+            int rating = 0;
+            int difficulty = 0;
+            int totaltime = 0;
+            
+            if (items == 0) {
+                return false;
+            }
+
+            foreach (var log in tls) {
+                rating += log.Rating;
+                
+                difficulty += (int)log.Difficulty;
+                
+                int days = log.TotalTime.Days;
+                int hours = log.TotalTime.Hours;
+                int minutes = log.TotalTime.Minutes;
+                int seconds = log.TotalTime.Seconds;
+                totaltime += (days * 24 * 60 * 60) + (hours * 60 * 60) + (minutes * 60) + seconds;
+            }
+
+            double avgRating = rating / items;
+            double avgDifficulty = difficulty / items;
+            double avgTotalTime = totaltime / items;
+
+            // if on average rating is better or equal to 5, difficulty is lower than medium (2)
+            // and the total time is less than 12 hours - the tour is child friendly
+            return avgRating >= 5 && avgDifficulty < 2 && avgTotalTime < 43201;
         }
 
         public IEnumerable<TourItem> GetTours() {

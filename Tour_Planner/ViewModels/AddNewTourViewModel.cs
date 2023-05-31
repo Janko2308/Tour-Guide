@@ -28,8 +28,8 @@ namespace Tour_Planner.ViewModels {
                             throw new Exception("All fields must be filled in!");
                     }
                     
-                    MessageBox.Show("Please wait...");
                     bl.AddTour(Tour);
+                    MessageBox.Show("Tour added successfully!");
                     foreach (Window window in Application.Current.Windows) {
                         if (window.DataContext == this) {
                             window.Close();
@@ -54,8 +54,8 @@ namespace Tour_Planner.ViewModels {
                         throw new Exception("All fields must be filled in!");
                     }
                     
-                    MessageBox.Show("Please wait...");
                     bl.EditTour(Tour);
+                    MessageBox.Show("Tour data updated successfully!");
                     foreach (Window window in Application.Current.Windows) {
                         if (window.DataContext == this) {
                             window.Close();

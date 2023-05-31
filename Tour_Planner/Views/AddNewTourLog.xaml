@@ -42,10 +42,10 @@
                 <ComboBoxItem Content="Hard"/>
             </ComboBox>
 
-            <Label Grid.Row="2" Grid.Column="0" Content="Total time: "/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Total time (dd.hh:mm:ss): "/>
             <TextBox Grid.Row="2" Grid.Column="1" Margin="10,0,0,0" Name="txtTemp" Text="{Binding Path=TourLog.TotalTime}"/>
 
-            <Label Grid.Row="3" Grid.Column="0" Content="Rating: "/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Rating (1-10): "/>
             <TextBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="txtRating" Text="{Binding Path=TourLog.Rating}"/>
 
             <Label Grid.Row="4" Grid.Column="0" Content="Comment: "/>

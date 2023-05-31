@@ -30,7 +30,7 @@ namespace Tour_Planner.BL {
             var rootNode = JsonNode.Parse(content);
             
             if (rootNode["route"]["routeError"] != null) {
-                _logger.Error("MapQuest API returned an error, route not possible." + rootNode["route"]["routeError"]["message"]);
+                _logger.Error($"MapQuest API returned an error, route from {from} to {to} not possible.");
                 throw new Exception(rootNode["route"]["routeError"]["message"].ToString());
             }
             
