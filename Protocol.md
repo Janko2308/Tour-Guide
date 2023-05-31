@@ -1,15 +1,36 @@
 # SWEN2 - Tour Planner Protocol
 ## Group
-Ormianin Maksymilian, if21b233@technikum-wien.at, https://github.com/torz69
+Ormianin Maksymilian, if21b233@technikum-wien.at, https://github.com/torz69  
 Hu Janko, if21b056@technikum-wien.at, https://github.com/janko2308
 
 ## App architecture
+### Main project
+TODO
 
+### Business Layer
+TODO
+
+### Data Access Layer
+TODO
+
+### Database connection
+TODO
+
+### Models
+TODO
+
+### Diagrams
+TODO
 
 ## Use cases
-
+TODO
 
 ## User Experience - Wireframes and final design
+### Wireframes
+TODO
+
+### Final Design
+TODO
 
 
 ## Library decisions
@@ -23,16 +44,19 @@ Throughout the project we used an abundance of libraries, the most important (wi
 -  TODO
 
 ## Lessons learned
+TODO
 
 ## Design patterns
+TODO
 
 ## Unit testing
+TODO
 
 ## Unique feature
 For our unique feature we have decided to implement a dark mode functionality to allow for better user experience overall. TODO
 
 ## Tracked time
-Overall we spent around 10h weekly since the half of March, which brings the total project tracked time to around 120 hours.
+Overall we spent around 10h weekly since the half of March, which brings the total project tracked time to around 120 hours.  
 
 Approximations for each item:
 - GUI in General - 6h
