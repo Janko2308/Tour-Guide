@@ -24,10 +24,18 @@ namespace Tour_Planner.ViewModels {
 
             ExecuteCommandAdd = new RelayCommand(param => {
                 try {
-                    if (TourLog.TotalTime == TimeSpan.Zero || TourLog.Rating < 0 || String.IsNullOrEmpty(TourLog.Comment)) {
+                    if (TourLog.TotalTime == TimeSpan.Zero || String.IsNullOrEmpty(TourLog.Comment)) {
                         throw new ArgumentNullException("Please fill all fields!");
                     }
-                    
+
+                    if (!TimeSpan.TryParse(TourLog.TotalTime.ToString(), out TimeSpan time)) {
+                        throw new ArgumentException("Please enter a valid time!");
+                    }
+
+                    if (TourLog.Rating < 1 || TourLog.Rating > 10) {
+                        throw new ArgumentOutOfRangeException("Rating must be between 1 and 10!");
+                    }
+
                     bl.AddTourLog(TourLog);
                     MessageBox.Show("TourLog added successfully");
                     foreach (Window window in Application.Current.Windows) {
@@ -56,6 +64,10 @@ namespace Tour_Planner.ViewModels {
 
                     if (!TimeSpan.TryParse(TourLog.TotalTime.ToString(), out TimeSpan time)) {
                         throw new ArgumentException("Please enter a valid time!");
+                    }
+
+                    if (TourLog.Rating < 1 || TourLog.Rating > 10) {
+                        throw new ArgumentOutOfRangeException("Rating must be between 1 and 10!");
                     }
 
                     bl.EditTourLog(TourLog);

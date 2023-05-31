@@ -58,11 +58,11 @@ namespace Tour_Planner.ViewModels
         }
 
         private ObservableCollection<TourLogs> tourLogs;
-        public ObservableCollection<TourLogs> TourLogs {
+        public ObservableCollection<TourLogs> TourLogsOfSelectedTour {
             get => tourLogs;
             set {
                 tourLogs = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TourLogs)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TourLogsOfSelectedTour)));
             }
         }
         
@@ -91,13 +91,13 @@ namespace Tour_Planner.ViewModels
             this.AllTourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
             this.addSearchBarVM.SearchRequested += OnSearchRequested;
             this.selectedTour = this.Tours.FirstOrDefault();
-            this.TourLogs = new ObservableCollection<TourLogs>();
+            this.TourLogsOfSelectedTour = new ObservableCollection<TourLogs>();
             //this.TourLogs is AllTourLogs where TourId == selectedTour.Id
             foreach (var log in AllTourLogs.Where(log => log.TourId == selectedTour.Id)) {
-                this.TourLogs.Add(log);
+                this.TourLogsOfSelectedTour.Add(log);
             }
 
-            this.selectedTourLog = this.TourLogs.FirstOrDefault();
+            this.selectedTourLog = this.TourLogsOfSelectedTour.FirstOrDefault();
 
 
             ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
@@ -181,7 +181,7 @@ namespace Tour_Planner.ViewModels
 
             ExecuteCommandGenerateReportSpecificTour = new RelayCommand(param => {
                 try {
-                    bl.ReportSpecificTour(SelectedTour, TourLogs);
+                    bl.ReportSpecificTour(SelectedTour, TourLogsOfSelectedTour);
                 }
                 catch (Exception e) {
                     MessageBox.Show(e.Message);
@@ -190,7 +190,7 @@ namespace Tour_Planner.ViewModels
 
             ExecuteCommandGenerateReportAllTours = new RelayCommand(param => {
                 try {
-                    bl.ReportAllTours(Tours, TourLogs);
+                    bl.ReportAllTours(Tours, AllTourLogs);
                 }
                 catch (Exception e) {
                     MessageBox.Show(e.Message);
@@ -245,12 +245,12 @@ namespace Tour_Planner.ViewModels
 
         private void UpdateTourLogs() {
             if (selectedTour != null) {
-                TourLogs.Clear();
+                TourLogsOfSelectedTour.Clear();
                 foreach (var log in AllTourLogs.Where(log => log.TourId == selectedTour.Id)) {
-                    TourLogs.Add(log);
+                    TourLogsOfSelectedTour.Add(log);
                 }
 
-                selectedTourLog = TourLogs.FirstOrDefault();
+                selectedTourLog = TourLogsOfSelectedTour.FirstOrDefault();
             }
         }
 
