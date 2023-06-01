@@ -4,11 +4,13 @@ Ormianin Maksymilian, if21b233@technikum-wien.at, https://github.com/torz69
 Hu Janko, if21b056@technikum-wien.at, https://github.com/janko2308
 
 ## App architecture
+The app architecture uses the layered concept to allow for better understanding of app's functionalities, i.e. so that searching for specific methods is made easier, because they all have their own place in code.
+
 ### Main project
-TODO
+The main project contains all views (XAML-Files) and their view models, which contain the logic behind the frontend (like buttons, list views etc.). Main project also uses the business layer to pass advanced business logic and model project to create objects which it then uses to e.g. show tour items in list view and much more. The main project also contains a config file with connectionstring for DAL.
 
 ### Business Layer
-TODO
+Business layer contains advanced logic of the program including: creating maps, calculating child friendliness, logging activities, importing/exporting into csv, generating reports and so on. The Business Layer also contains a config file containing key for `MapQuestAPI`.
 
 ### Data Access Layer
 TODO
