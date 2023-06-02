@@ -56,7 +56,7 @@ namespace Tour_Planner.BL {
             logger.Info("Tour deleted successfully");
         }
 
-        public void AddTourLog(TourLogs tl) {
+        public async Task AddTourLog(TourLogs tl) {
             logger.Info($"Beginning to add tour log for tour with id {tl.TourId}");
             tl.DateTime = tl.DateTime.ToUniversalTime();
             DataManager.AddTourLog(tl);
@@ -72,7 +72,7 @@ namespace Tour_Planner.BL {
             logger.Info("Tour log edited successfully");
         }
 
-        public void DeleteTourLog(TourLogs tl) {
+        public async Task DeleteTourLog(TourLogs tl) {
             logger.Info($"Beginning to delete tour log with id {tl.Id}");
             DataManager.DeleteTourLog(tl);
             logger.Info("Tour log deleted successfully");

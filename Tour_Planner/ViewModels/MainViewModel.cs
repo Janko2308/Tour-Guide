@@ -110,7 +110,9 @@ namespace Tour_Planner.ViewModels
                     if (selectedTour == null) {
                         MessageBox.Show("Please select a tour first");
                     } else {
-                        new Views.AddNewTourLog(selectedTour.Id).ShowDialog();
+                        var dialog = new Views.AddNewTourLog(selectedTour.Id);
+                        ((AddNewTourLogViewModel)dialog.DataContext).Saved += (sender, args) => this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+                        dialog.ShowDialog();
                     }
                 }
                 catch(Exception e) {
@@ -175,6 +177,7 @@ namespace Tour_Planner.ViewModels
 
                     if (yesOrNo == MessageBoxResult.Yes) {
                         bl.DeleteTourLog(SelectedTourLog);
+                        bl.Saved += (sender, args) => this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
                         SelectedTourLog = TourLogs.FirstOrDefault();
                     }
                 }

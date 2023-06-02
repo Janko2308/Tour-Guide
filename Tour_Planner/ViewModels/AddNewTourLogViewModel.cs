@@ -16,6 +16,7 @@ namespace Tour_Planner.ViewModels {
         public ICommand ExecuteCommandEdit { get;}
         public bool IsEdited { get; private set; } = false;
         public bool IsAdded { get; private set; } = false;
+        public event EventHandler? Saved;
 
         public AddNewTourLogViewModel(TourManager bl, int TourId) {
             this.TourLog.TourId = TourId;
@@ -29,7 +30,7 @@ namespace Tour_Planner.ViewModels {
                     }
                     
                     MessageBox.Show("Please wait...");
-                    bl.AddTourLog(TourLog);
+                    bl.AddTourLog(TourLog).ContinueWith(task => Saved?.Invoke(this, EventArgs.Empty));
                     foreach (Window window in Application.Current.Windows) {
                         if (window.DataContext == this) {
                             window.Close();
