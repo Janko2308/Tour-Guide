@@ -30,11 +30,8 @@ This project contains all models, structs and enums used in the project - tour i
 ## User Experience - Wireframes and final design
 ### Wireframes
 For the design we decided to use a raw WPF design, as in our opinion having too fancy design, could result in UX declining instead of getting better. For our main window we were strongly influenced by the proposed design from the assignment, for adding new tours and/or tourlogs we created our own idea how such window should look like. The wireframes below show how these 3 windows were planned to look like.
-![](Protocol-picture/wire1.png)  
 Main view window (from the assignment PDF)  
-![](Protocol-picture/wire2.png)  
 Adding new tour  
-![](Protocol-picture/wire3.png)  
 Adding
 
 ### Final Design
