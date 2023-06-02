@@ -13,7 +13,7 @@ The main project contains all views (XAML-Files) and their view models, which co
 Business layer contains advanced logic of the program including: creating maps, calculating child friendliness, logging activities, importing/exporting into csv, generating reports and so on. The Business Layer also contains a config file containing key for `MapQuestAPI`.
 
 ### Data Access Layer
-TODO
+Data access layer contains logic of database connection itself. The database itself is created within the implementation class, and all database queries to add/delete or modify items take place in that layer.
 
 ### Database connection
 TODO
@@ -52,7 +52,19 @@ TODO
 TODO
 
 ## Unit testing
-TODO
+The unit tests are divided into 4 different categories: Database mocks, Enum, Model and API tests.
+
+### Database mocks
+For the database mocks we decided to test simple functionalities like adding/removing or modifying an item in a mocked database/repository, to see whether the logic of DAL actually works as intended.
+
+### Enum
+Checks whether classes `Model.Enums.Difficulty` and `Model.Enums.Transport` are parsed and read from correctly.
+
+### Model
+Checks whether models are created correctly and that their assigned values can be read from. This means both `TourItem` and `TourLogs` get tested in this test file. The return struct used while creating maps is also used in this particular case (`Model.Structs.TourCreation`).
+
+### API 
+This test file checks whether a map is being created thanks to `MapQuestAPI`, asserting the returning struct `Model.Structs.TourCreation`. It checks also a situation once the API fails.
 
 ## Unique feature
 For our unique feature we have decided to implement a dark mode functionality to allow for better user experience overall. TODO
