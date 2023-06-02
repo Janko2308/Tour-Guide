@@ -111,7 +111,7 @@ namespace Tour_Planner.ViewModels
                         MessageBox.Show("Please select a tour first");
                     } else {
                         var dialog = new Views.AddNewTourLog(selectedTour.Id);
-                        ((AddNewTourLogViewModel)dialog.DataContext).Saved += (sender, args) => this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+                        ((AddNewTourLogViewModel)dialog.DataContext).Saved += (sender, args) => this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
                         dialog.ShowDialog();
                     }
                 }
@@ -125,7 +125,10 @@ namespace Tour_Planner.ViewModels
                     if (selectedTour == null) {
                         MessageBox.Show("Please select a tour to edit");
                     } else {
-                        new Views.AddNewTour(selectedTour).ShowDialog();
+                        TourItem t = selectedTour;
+                        var dialog = new Views.AddNewTour(t);
+                        ((AddNewTourViewModel)dialog.DataContext).Saved += (sender, args) => this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+                        dialog.ShowDialog();
                     }
                 }
                 catch(Exception e) {
@@ -138,7 +141,10 @@ namespace Tour_Planner.ViewModels
                     if (selectedTourLog == null) {
                         MessageBox.Show("No tour log selected!");
                     } else {
-                        new Views.AddNewTourLog(SelectedTourLog).ShowDialog();
+                        TourLogs t = selectedTourLog;
+                        var dialog = new Views.AddNewTourLog(t);
+                        ((AddNewTourLogViewModel)dialog.DataContext).Saved += (sender, args) => this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+                        dialog.ShowDialog();
                     }
                 }
                 catch (Exception e) {
@@ -177,7 +183,7 @@ namespace Tour_Planner.ViewModels
 
                     if (yesOrNo == MessageBoxResult.Yes) {
                         bl.DeleteTourLog(SelectedTourLog);
-                        bl.Saved += (sender, args) => this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+                        this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
                         SelectedTourLog = TourLogs.FirstOrDefault();
                     }
                 }
