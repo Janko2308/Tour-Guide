@@ -45,6 +45,8 @@ namespace Tour_Planner.ViewModels
             } 
         }
 
+        public ObservableCollection<TourLogs> AllTourLogs { get; set; }
+
         private ObservableCollection<TourLogs> tourLogs;
         public ObservableCollection<TourLogs> TourLogs {
             get => tourLogs;
@@ -77,7 +79,7 @@ namespace Tour_Planner.ViewModels
             }
         }
 
-        private ObservableCollection<TourLogs> tourLogs;
+        
         public ObservableCollection<TourLogs> TourLogsOfSelectedTour {
             get => tourLogs;
             set {
