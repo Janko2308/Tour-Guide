@@ -16,10 +16,10 @@ Business layer contains advanced logic of the program including: creating maps, 
 Data access layer contains logic of database connection itself. The database itself is created within the implementation class, and all database queries to add/delete or modify items take place in that layer.
 
 ### Database connection
-**TODO**
+To build a connection to database, the `TourDbContext.cs` file creates 2 DbSets - `TourItems` and `TourLogItems`, and uses connection string from config file in main project. This allows to later use the database to utilize all of DAL's functionalities.
 
 ### Models
-**TODO**
+This project contains all models, structs and enums used in the project - tour items, tour logs, difficulty, transport and `TourCreation` which is a struct to help return computed values from `MapQuestAPI`'s response. Allows to use them on other layers of the program.
 
 ### Diagrams
 **TODO**
@@ -54,7 +54,8 @@ Throughout the project we used an abundance of libraries, the most important (wi
 - Saving images into DB as byte array
 
 ## Design patterns
-**TODO**
+- Logger Factory - uses factory pattern to create loggers of many different types, as programming them individually would mean much more code.
+- ObservableCollection - a collection using observer design pattern, which in return is invoked whenever a change is noted.
 
 ## Unit testing
 The unit tests are divided into 4 different categories: Database mocks, Enum, Model and API tests.
