@@ -13,26 +13,36 @@ The main project contains all views (XAML-Files) and their view models, which co
 Business layer contains advanced logic of the program including: creating maps, calculating child friendliness, logging activities, importing/exporting into csv, generating reports and so on. The Business Layer also contains a config file containing key for `MapQuestAPI`.
 
 ### Data Access Layer
-TODO
+Data access layer contains logic of database connection itself. The database itself is created within the implementation class, and all database queries to add/delete or modify items take place in that layer.
 
 ### Database connection
-TODO
+To build a connection to database, the `TourDbContext.cs` file creates 2 DbSets - `TourItems` and `TourLogItems`, and uses connection string from config file in main project. This allows to later use the database to utilize all of DAL's functionalities.
 
 ### Models
-TODO
+This project contains all models, structs and enums used in the project - tour items, tour logs, difficulty, transport and `TourCreation` which is a struct to help return computed values from `MapQuestAPI`'s response. Allows to use them on other layers of the program.
 
 ### Diagrams
-TODO
+**TODO**
 
 ## Use cases
-TODO
+**TODO**
 
 ## User Experience - Wireframes and final design
 ### Wireframes
-TODO
+For the design we decided to use a raw WPF design, as in our opinion having too fancy design, could result in UX declining instead of getting better. For our main window we were strongly influenced by the proposed design from the assignment, for adding new tours and/or tourlogs we created our own idea how such window should look like. The wireframes below show how these 3 windows were planned to look like.
+![](Protocol-picture/wire1.png)  
+Main view window (from the assignment PDF)  
+![](Protocol-picture/wire2.png)  
+Adding new tour  
+![](Protocol-picture/wire3.png)  
+Adding
 
 ### Final Design
-TODO
+Final design differs slightly from planned wireframes - an example of which would be, that the buttons to edit and/or delete a selected tour are in misc tab instead of being visible near tours themselves.
+![](Protocol-pictures/main.png)  
+Main view  
+![](Protocol-pictures/newTour.png)  
+Adding new tour  
 
 
 ## Library decisions
@@ -41,21 +51,40 @@ Throughout the project we used an abundance of libraries, the most important (wi
 -  log4net - used for logging activities, which creates a plain-text file, which contains every time whenever a log was called, with the exact time, level of severity and a message. Helps to analyse how the program works, and as such also helps to solve bugs. Implemented in Business Layer and primarily used inside of it, however it is also called upon in the main project.
 -  System.Drawing.Common - used to parse images into a byte array, so that an image can be saved directly in a database, meaning no need in saving images locally. Byte array is used in the TourItem in .Model project, and worked upon in the business layer - to create a map from MapQuest API and later save it into an object of class TourItem, to save it in DAL into the database.
 -  System.Configuration.ConfigurationManager - used to create config files which help to store information like keys or connectionstrings without the need to keep them hard-coded. Implemented in main project, used in DAL and BL.
--  Npgsql.EntityFrameworkCore.PostgreSQL - TODO
 -  NUnit - used to create unit tests, allowing for an insight over different program functionalities. Allows for much easier analysis of program's behaviour, and as such makes development easier.
--  TODO
+-  Extended WPF - used in the project in only one case - to allow for date and time input while creating/editing a tour log.
+-  **TODO**
 
 ## Lessons learned
-TODO
+- C#, .NET skills deepened, WPF skills developed and deepened.
+- Using ORM to make working with the PostgreSQL easier.
+- Creating config files
+- Creating pdf files using c# code only
+- Logging using a library log4net
+- Using external API to create content (in this case the `MapQuestAPI`)
+- Saving images into DB as byte array
 
 ## Design patterns
-TODO
+- Logger Factory - uses factory pattern to create loggers of many different types, as programming them individually would mean much more code.
+- ObservableCollection - a collection using observer design pattern, which in return is invoked whenever a change is noted.
 
 ## Unit testing
-TODO
+The unit tests are divided into 4 different categories: Database mocks, Enum, Model and API tests.
+
+### Database mocks
+For the database mocks we decided to test simple functionalities like adding/removing or modifying an item in a mocked database/repository, to see whether the logic of DAL actually works as intended.
+
+### Enum
+Checks whether classes `Model.Enums.Difficulty` and `Model.Enums.Transport` are parsed and read from correctly.
+
+### Model
+Checks whether models are created correctly and that their assigned values can be read from. This means both `TourItem` and `TourLogs` get tested in this test file. The return struct used while creating maps is also used in this particular case (`Model.Structs.TourCreation`).
+
+### API 
+This test file checks whether a map is being created thanks to `MapQuestAPI`, asserting the returning struct `Model.Structs.TourCreation`. It checks also a situation once the API fails.
 
 ## Unique feature
-For our unique feature we have decided to implement a dark mode functionality to allow for better user experience overall. TODO
+For our unique feature we have decided to implement a dark mode functionality to allow for better user experience overall. **TODO**
 
 ## Tracked time
 Overall we spent around 10h weekly since the half of March, which brings the total project tracked time to around 120 hours.  
