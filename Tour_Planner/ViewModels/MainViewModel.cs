@@ -17,6 +17,8 @@ using Tour_Planner.BL;
 using Tour_Planner.Model;
 using Microsoft.Win32;
 using log4net;
+using System.Runtime.ExceptionServices;
+
 
 namespace Tour_Planner.ViewModels
 {
@@ -25,7 +27,10 @@ namespace Tour_Planner.ViewModels
         private AddNewTourViewModel addNewTourVM;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         public EventHandler? DbChanged;
+        public EventHandler? tourChanged;
+
 
         private TourItem selectedTour;
         private ObservableCollection<TourItem> tours;
@@ -58,6 +63,7 @@ namespace Tour_Planner.ViewModels
             set {
                 selectedTour = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTour)));
+                UpdateTourLogs();
             }
         }
 
@@ -68,6 +74,15 @@ namespace Tour_Planner.ViewModels
             set {
                 selectedTourLog = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTourLog)));
+            }
+        }
+
+        private ObservableCollection<TourLogs> tourLogs;
+        public ObservableCollection<TourLogs> TourLogsOfSelectedTour {
+            get => tourLogs;
+            set {
+                tourLogs = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TourLogsOfSelectedTour)));
             }
         }
         
@@ -93,11 +108,17 @@ namespace Tour_Planner.ViewModels
             this.addNewTourVM = antVM;
             this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
             this.allTours = new ObservableCollection<TourItem>(bl.GetTours());
-            this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+            this.AllTourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
             this.addSearchBarVM.SearchRequested += OnSearchRequested;
-            // this.selectedTour is equal if this.Tours contain no entries then empty, else this.Tours[0]
             this.selectedTour = this.Tours.FirstOrDefault();
-            this.selectedTourLog = this.TourLogs.FirstOrDefault();
+            this.TourLogsOfSelectedTour = new ObservableCollection<TourLogs>();
+            //this.TourLogs is AllTourLogs where TourId == selectedTour.Id
+            foreach (var log in AllTourLogs.Where(log => log.TourId == selectedTour.Id)) {
+                this.TourLogsOfSelectedTour.Add(log);
+            }
+
+            this.selectedTourLog = this.TourLogsOfSelectedTour.FirstOrDefault();
+
 
             ExecuteCommandOpenNewTour = new RelayCommand(param => {
                 var dialog = new Views.AddNewTour();
@@ -185,6 +206,7 @@ namespace Tour_Planner.ViewModels
                         bl.DeleteTourLog(SelectedTourLog);
                         this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
                         SelectedTourLog = TourLogs.FirstOrDefault();
+
                     }
                 }
                 catch (Exception e) {
@@ -194,7 +216,7 @@ namespace Tour_Planner.ViewModels
 
             ExecuteCommandGenerateReportSpecificTour = new RelayCommand(param => {
                 try {
-                    bl.ReportSpecificTour(SelectedTour);
+                    bl.ReportSpecificTour(SelectedTour, TourLogsOfSelectedTour);
                 }
                 catch (Exception e) {
                     MessageBox.Show(e.Message);
@@ -203,7 +225,7 @@ namespace Tour_Planner.ViewModels
 
             ExecuteCommandGenerateReportAllTours = new RelayCommand(param => {
                 try {
-                    bl.ReportAllTours(Tours);
+                    bl.ReportAllTours(Tours, AllTourLogs);
                 }
                 catch (Exception e) {
                     MessageBox.Show(e.Message);
@@ -255,6 +277,17 @@ namespace Tour_Planner.ViewModels
             }
 
             return string.Empty;
+        }
+
+        private void UpdateTourLogs() {
+            if (selectedTour != null) {
+                TourLogsOfSelectedTour.Clear();
+                foreach (var log in AllTourLogs.Where(log => log.TourId == selectedTour.Id)) {
+                    TourLogsOfSelectedTour.Add(log);
+                }
+
+                selectedTourLog = TourLogsOfSelectedTour.FirstOrDefault();
+            }
         }
 
 

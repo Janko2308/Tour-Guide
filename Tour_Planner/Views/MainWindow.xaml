@@ -96,14 +96,14 @@
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5"/>
                 <TabControl Grid.Row="2">
                     <TabItem Header="Tour Logs">
-                        <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TourLogs}" x:Name="TourLogsView" SelectionMode="Single" SelectedItem="{Binding Path=SelectedTourLog}">
+                        <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=TourLogsOfSelectedTour}" x:Name="TourLogsView" SelectionMode="Single" SelectedItem="{Binding Path=SelectedTourLog}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=DateTime}"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Comment}"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Difficulty}"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalTime}"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Rating}"/>
+                                    <GridViewColumn Width="130" DisplayMemberBinding="{Binding Path=DateTime}"/>
+                                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding Path=Comment}"/>
+                                    <GridViewColumn Width="50" DisplayMemberBinding="{Binding Path=Difficulty}"/>
+                                    <GridViewColumn Width="70" DisplayMemberBinding="{Binding Path=TotalTime}"/>
+                                    <GridViewColumn Width="40" DisplayMemberBinding="{Binding Path=Rating}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
