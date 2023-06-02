@@ -16,23 +16,23 @@ Business layer contains advanced logic of the program including: creating maps, 
 Data access layer contains logic of database connection itself. The database itself is created within the implementation class, and all database queries to add/delete or modify items take place in that layer.
 
 ### Database connection
-TODO
+**TODO**
 
 ### Models
-TODO
+**TODO**
 
 ### Diagrams
-TODO
+**TODO**
 
 ## Use cases
-TODO
+**TODO**
 
 ## User Experience - Wireframes and final design
 ### Wireframes
-TODO
+**TODO**
 
 ### Final Design
-TODO
+**TODO**
 
 
 ## Library decisions
@@ -41,15 +41,20 @@ Throughout the project we used an abundance of libraries, the most important (wi
 -  log4net - used for logging activities, which creates a plain-text file, which contains every time whenever a log was called, with the exact time, level of severity and a message. Helps to analyse how the program works, and as such also helps to solve bugs. Implemented in Business Layer and primarily used inside of it, however it is also called upon in the main project.
 -  System.Drawing.Common - used to parse images into a byte array, so that an image can be saved directly in a database, meaning no need in saving images locally. Byte array is used in the TourItem in .Model project, and worked upon in the business layer - to create a map from MapQuest API and later save it into an object of class TourItem, to save it in DAL into the database.
 -  System.Configuration.ConfigurationManager - used to create config files which help to store information like keys or connectionstrings without the need to keep them hard-coded. Implemented in main project, used in DAL and BL.
--  Npgsql.EntityFrameworkCore.PostgreSQL - TODO
 -  NUnit - used to create unit tests, allowing for an insight over different program functionalities. Allows for much easier analysis of program's behaviour, and as such makes development easier.
--  TODO
+-  **TODO**
 
 ## Lessons learned
-TODO
+- C#, .NET skills deepened, WPF skills developed and deepened.
+- Using ORM to make working with the PostgreSQL easier.
+- Creating config files
+- Creating pdf files using c# code only
+- Logging using a library log4net
+- Using external API to create content (in this case the `MapQuestAPI`)
+- Saving images into DB as byte array
 
 ## Design patterns
-TODO
+**TODO**
 
 ## Unit testing
 The unit tests are divided into 4 different categories: Database mocks, Enum, Model and API tests.
@@ -67,7 +72,7 @@ Checks whether models are created correctly and that their assigned values can b
 This test file checks whether a map is being created thanks to `MapQuestAPI`, asserting the returning struct `Model.Structs.TourCreation`. It checks also a situation once the API fails.
 
 ## Unique feature
-For our unique feature we have decided to implement a dark mode functionality to allow for better user experience overall. TODO
+For our unique feature we have decided to implement a dark mode functionality to allow for better user experience overall. **TODO**
 
 ## Tracked time
 Overall we spent around 10h weekly since the half of March, which brings the total project tracked time to around 120 hours.  
