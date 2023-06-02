@@ -242,12 +242,6 @@ namespace Tour_Planner.BL {
             return TimeZoneInfo.ConvertTimeFromUtc(dt, TimeZoneInfo.Local);
         }
 
-        // TODO: test function, no calls yet
-        public DateTime ConvertLocal(DateTime dt) {
-            logger.Info("Converting local...");
-            return TimeZoneInfo.ConvertTimeToUtc(dt, TimeZoneInfo.Local);
-        }
-
         public void ImportToursFromCSV(string FilePath) {
             logger.Info("Importing tours from CSV...");
             string[] lines = File.ReadAllLines(FilePath);

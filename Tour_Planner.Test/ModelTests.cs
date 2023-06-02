@@ -1,4 +1,5 @@
 using Tour_Planner.Model;
+using Tour_Planner.Model.Structs;
 
 namespace Tour_Planner.Test {
     public class ModelTests {
@@ -6,7 +7,7 @@ namespace Tour_Planner.Test {
         public void Setup() {
         }
 
-        // Assess whether the TourItem class is working as intended - AAA Pattern
+        // Assess whether the TourItem class is working as intended
         [Test]
         public void TourItemCreationTest() {
             // Arrange
@@ -33,7 +34,7 @@ namespace Tour_Planner.Test {
             Assert.That(new byte[1], Is.EqualTo(tourItem.TourInfo));
         }
 
-        // Assess whether the TourLogs class is working as intended - AAA Pattern
+        // Assess whether the TourLogs class is working as intended
         [Test]
         public void TourLogCreationTest() {
             // Arrange
@@ -54,6 +55,23 @@ namespace Tour_Planner.Test {
             Assert.That(Model.Enums.Difficulty.Easy, Is.EqualTo(tourLog.Difficulty));
             Assert.That(new System.TimeSpan(1, 1, 1, 1), Is.EqualTo(tourLog.TotalTime));
             Assert.That(1, Is.EqualTo(tourLog.Rating));
+        }
+
+        // Assess whether it is possible to set and get Data from struct TourCreation
+        [Test]
+        public void TourCreationStructTest() {
+            // Arrange
+            TourCreation tourCreation = new TourCreation();
+
+            // Act
+            tourCreation.Distance = 1.0;
+            tourCreation.EstimatedTime = new System.TimeSpan(1, 1, 1);
+            tourCreation.Picture = new byte[1];
+
+            // Assert
+            Assert.That(1.0, Is.EqualTo(tourCreation.Distance));
+            Assert.That(new System.TimeSpan(1, 1, 1), Is.EqualTo(tourCreation.EstimatedTime));
+            Assert.That(new byte[1], Is.EqualTo(tourCreation.Picture));
         }
     }
 }
