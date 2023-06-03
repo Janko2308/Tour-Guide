@@ -32,7 +32,6 @@ direction TB
     }
 
     class BaseViewModel {
-        <<abstract>>
         +PropertyChanged: event
     }
 
@@ -75,8 +74,27 @@ classDiagram
 ```
 Logger factory method - a design pattern.   
 
-![]()  
-TODO: Models how do they connect  
+```mermaid
+classDiagram
+    class Difficulty {
+        <<enum>>
+    }
+
+    class Transport {
+        <<enum>>
+    }
+
+    class TourItem
+
+    class TourLogs
+
+    TourLogs ..> Difficulty: Uses
+    TourItem ..> Transport: Uses
+    TourLogs --> TourItem: Uses
+
+
+```
+Class `TourLogs` uses the `Difficulty` enum as property, the same for `TourItem` and `Transport` enum. Then the `TourLogs` class uses `TourId` int property, which in program logic it gets passed from a `TourItem`.
 
 ![]()  
 TODO: DAL
