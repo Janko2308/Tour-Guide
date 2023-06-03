@@ -26,7 +26,8 @@ namespace Tour_Planner.Test {
                 ("onConfiguring", BindingFlags.NonPublic | BindingFlags.Instance);
             var mockContext = new Mock<TourDbContext>();
             context.SetValue(dal, mockContext);
-            onConfiguring.Invoke(mockContext, new object[] { new DbContextOptionsBuilder() });
+            //onConfiguring.Invoke(mockContext, new object[] { new DbContextOptionsBuilder() });
+            //onConfiguring.CallingConvention
             var t = new TourItem();
             List<TourItem> tours = new List<TourItem>();
             mockContext.Setup(x => x.TourItems.Add(It.IsAny<TourItem>())).Callback<TourItem>(tours.Add);
