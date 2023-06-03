@@ -96,8 +96,33 @@ classDiagram
 ```
 Class `TourLogs` uses the `Difficulty` enum as property, the same for `TourItem` and `Transport` enum. Then the `TourLogs` class uses `TourId` int property, which in program logic it gets passed from a `TourItem`.
 
-![]()  
-TODO: DAL
+```mermaid
+classDiagram
+    class AppConfig {
+        <<config>>
+    }
+
+    class TourDbContext
+
+    class IDataManager {
+         <<interface>>
+        +AddTour(t): void
+        +EditTour(t): void
+        +DeleteTour(t): void
+        +AddTourLog(t): void
+        +EditTourLog(t): void
+        +DeleteTourLog(t): void
+        +GetTours(): IEnumerable<TourItem>
+        +GetTourLogs(): IEnumerable<TourLogs>
+    }
+
+    class DataManagerEntityFrameworkImpl
+
+    AppConfig "1" --> "1" TourDbContext
+    DataManagerEntityFrameworkImpl --|> IDataManager
+    DataManagerEntityFrameworkImpl --> TourDbContext: "uses"
+ ```
+Data Access Layer uses the `AppConfig` config file to get a connection string for the `TourDbContext`, which then is used for DB connection in `DataManagerEntityFrameworkImpl`. This itself is an implementation of an interface `IDataManager`.
 
 ## Use cases
 ![](Protocol-pictures/Use-case.png)  
