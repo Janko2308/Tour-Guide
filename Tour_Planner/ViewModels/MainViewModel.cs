@@ -135,11 +135,21 @@ namespace Tour_Planner.ViewModels
                     } else {
                         var dialog = new Views.AddNewTourLog(selectedTour.Id);
                         ((AddNewTourLogViewModel)dialog.DataContext).Saved += (sender, args) => {
-                            this.AllTourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
-                            foreach (var log in AllTourLogs.Where(log => log.TourId == selectedTour.Id))
-                            {
-                                this.TourLogs.Add(log);
-                            }
+                            // Get the updated tour logs from the business logic layer
+                            AllTourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+
+                            // Filter the updated tour logs for the selected tour
+                            var filteredLogs = AllTourLogs.Where(log => log.TourId == selectedTour.Id);
+
+                            // Update the TourLogs collection on the UI thread using Dispatcher
+                            Application.Current.Dispatcher.Invoke(() => {
+                                this.TourLogs.Clear();
+                                foreach (var log in filteredLogs)
+                                {
+                                    this.TourLogs.Add(log);
+                                }
+                            });
+
                             selectedTourLog = TourLogs.FirstOrDefault();
                         };
                         dialog.ShowDialog();
@@ -171,9 +181,26 @@ namespace Tour_Planner.ViewModels
                     if (selectedTourLog == null) {
                         MessageBox.Show("No tour log selected!");
                     } else {
-                        TourLogs t = selectedTourLog;
+                        TourLogs t = new TourLogs(selectedTourLog);
                         var dialog = new Views.AddNewTourLog(t);
-                        ((AddNewTourLogViewModel)dialog.DataContext).Saved += (sender, args) => this.TourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+                        ((AddNewTourLogViewModel)dialog.DataContext).Saved += (sender, args) => {
+                            // Get the updated tour logs from the business logic layer
+                            AllTourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+
+                            // Filter the updated tour logs for the selected tour
+                            var filteredLogs = AllTourLogs.Where(log => log.TourId == selectedTour.Id);
+
+                            // Update the TourLogs collection on the UI thread using Dispatcher
+                            Application.Current.Dispatcher.Invoke(() => {
+                                this.TourLogs.Clear();
+                                foreach (var log in filteredLogs)
+                                {
+                                    this.TourLogs.Add(log);
+                                }
+                            });
+
+                            selectedTourLog = TourLogs.FirstOrDefault();
+                        };
                         dialog.ShowDialog();
                     }
                 }
