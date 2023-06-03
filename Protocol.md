@@ -22,10 +22,23 @@ To build a connection to database, the `TourDbContext.cs` file creates 2 DbSets 
 This project contains all models, structs and enums used in the project - tour items, tour logs, difficulty, transport and `TourCreation` which is a struct to help return computed values from `MapQuestAPI`'s response. Allows to use them on other layers of the program.
 
 ### Diagrams
-**TODO**
+![]()  
+TODO: BaseViewModel  
 
+![]()  
+TODO: Logger factory  
+
+![]()  
+TODO: Models how do they connect  
+
+![]()  
+TODO: DAL
 ## Use cases
-**TODO**
+![](Protocol-pictures/Use-case.png)  
+Use-case diagram for all functionalities  
+
+![]()  
+TODO: Sequence diagram for creating a tour
 
 ## User Experience - Wireframes and final design
 ### Wireframes
