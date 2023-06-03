@@ -165,7 +165,7 @@ Throughout the project we used an abundance of libraries, the most important (wi
 -  System.Configuration.ConfigurationManager - used to create config files which help to store information like keys or connectionstrings without the need to keep them hard-coded. Implemented in main project, used in DAL and BL.
 -  NUnit - used to create unit tests, allowing for an insight over different program functionalities. Allows for much easier analysis of program's behaviour, and as such makes development easier.
 -  Extended WPF - used in the project in only one case - to allow for date and time input while creating/editing a tour log.
--  **TODO**
+-  WPFDarkTheme - an external library used for dark mode feature in our app.
 
 ## Lessons learned
 - C#, .NET skills deepened, WPF skills developed and deepened.
@@ -199,7 +199,7 @@ Checks whether models are created correctly and that their assigned values can b
 This test file checks whether a map is being created thanks to `MapQuestAPI`, asserting the returning struct `Model.Structs.TourCreation`. It checks also a situation once the API fails.
 
 ## Unique feature
-For our unique feature we have decided to implement a dark mode functionality to allow for better user experience overall. **TODO**
+For our unique feature we have decided to implement a dark mode functionality to allow for better user experience overall. The library used for that is called `WPFDarkTheme` and is available as an open-source software add-on on github (https://github.com/AngryCarrot789/WPFDarkTheme).
 
 ## Tracked time
 Overall we spent around 10h weekly since the half of March, which brings the total project tracked time to around 120 hours.  
