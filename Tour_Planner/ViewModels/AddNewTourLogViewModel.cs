@@ -37,7 +37,7 @@ namespace Tour_Planner.ViewModels {
                         throw new ArgumentOutOfRangeException("Rating must be between 1 and 10!");
                     }
 
-                    bl.AddTourLog(TourLog);
+                    bl.AddTourLog(TourLog).ContinueWith(task => Saved?.Invoke(this, EventArgs.Empty));
                     MessageBox.Show("TourLog added successfully");
 
                     foreach (Window window in Application.Current.Windows) {
@@ -72,7 +72,7 @@ namespace Tour_Planner.ViewModels {
                         throw new ArgumentOutOfRangeException("Rating must be between 1 and 10!");
                     }
 
-                    bl.EditTourLog(TourLog);
+                    bl.EditTourLog(TourLog).ContinueWith(task => Saved?.Invoke(this, EventArgs.Empty));
                     MessageBox.Show("Tour log edited successfully");
                     foreach (Window window in Application.Current.Windows) {
                         if (window.DataContext == this) {

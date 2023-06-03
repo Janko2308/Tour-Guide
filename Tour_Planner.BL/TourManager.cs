@@ -63,7 +63,7 @@ namespace Tour_Planner.BL {
             logger.Info($"Tour log added successfully");
         }
 
-        public void EditTourLog(TourLogs tl) {
+        public async Task EditTourLog(TourLogs tl) {
             logger.Info($"Beginning to edit tour log with id {tl.Id}");
             if(tl.DateTime.Kind != DateTimeKind.Utc) {
                 tl.DateTime = tl.DateTime.ToUniversalTime();
