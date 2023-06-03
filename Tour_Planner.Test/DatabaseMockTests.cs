@@ -27,10 +27,10 @@ namespace Tour_Planner.Test {
             MethodInfo onConfiguring = typeof(TourDbContext).GetMethod
                 ("onConfiguring", BindingFlags.NonPublic | BindingFlags.Instance);
             var mockContext = new Mock<TourDbContext>();
-            context.SetValue(dal, mockContext);
+            context.SetValue(dal, mockContext.Object);
             //onConfiguring.Invoke(mockContext, new object[] { new DbContextOptionsBuilder() });
             //onConfiguring.CallingConvention
-            onConfiguring.Invoke(mockContext, new object[] { new DbContextOptionsBuilder() });
+            onConfiguring.Invoke(mockContext.Object, new object[] { new DbContextOptionsBuilder() });
             var t = new TourItem();
             List<TourItem> tours = new List<TourItem>();
             mockContext.Setup(x => x.TourItems.Add(It.IsAny<TourItem>())).Callback<TourItem>(tours.Add);
@@ -184,6 +184,34 @@ namespace Tour_Planner.Test {
             Assert.That(tourLogs.Count, Is.EqualTo(0));
             Assert.That(tourLogs.Contains(t), Is.False);
             mockContext.Verify(x => x.SaveChanges(), Times.Once);
+        }
+
+        // test to fetch all Tours from db
+        [Test]
+        public void GetAllToursTest() {
+            // Arrange
+            var dal = new DataManagerEntityFrameworkImpl();
+            FieldInfo context = typeof(DataManagerEntityFrameworkImpl).GetField
+                ("context", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo onConfiguring = typeof(TourDbContext).GetMethod
+                ("onConfiguring", BindingFlags.NonPublic | BindingFlags.Instance);
+            var mockContext = new Mock<TourDbContext>();
+            context.SetValue(dal, mockContext);
+            //onConfiguring.Invoke(mockContext, new object[] { new DbContextOptionsBuilder() });
+            //onConfiguring.CallingConvention
+            var t = new TourItem {
+                Name = "TestTour",
+                Description = "TestDescription"
+            };
+            List<TourItem> tours = new List<TourItem> { t };
+            //mockContext.Setup(x => x.TourItems).Returns(tours.AsQueryable());
+
+            // Act
+            var result = dal.GetTours();
+
+            // Assert
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result.Contains(t));
         }
     }
 }
