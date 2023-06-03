@@ -22,17 +22,65 @@ To build a connection to database, the `TourDbContext.cs` file creates 2 DbSets 
 This project contains all models, structs and enums used in the project - tour items, tour logs, difficulty, transport and `TourCreation` which is a struct to help return computed values from `MapQuestAPI`'s response. Allows to use them on other layers of the program.
 
 ### Diagrams
-![]()  
-TODO: BaseViewModel  
+```mermaid
+classDiagram
+direction TB
 
-![]()  
-TODO: Logger factory  
+   class INotifyPropertyChanged {
+        <<interface>>
+        +PropertyChanged: event
+    }
+
+    class BaseViewModel {
+        <<abstract>>
+        +PropertyChanged: event
+    }
+
+    class AddNewTourViewModel
+
+    class AddNewTourLogViewModel
+
+    INotifyPropertyChanged <|.. BaseViewModel
+    BaseViewModel <|-- AddNewTourViewModel
+    BaseViewModel <|-- AddNewTourLogViewModel
+
+```
+Base View Model implements the INotifyPropertyChanged which is later used in the ViewModels inheriting from it.   
+
+```mermaid
+classDiagram
+    class ILoggerWrapper {
+        <<interface>>
+        +Debug(string s): void
+        +Error(string s): void
+        +Info(string s): void
+        +Warn(string s): void
+        +Fatal(string s): void
+    }
+
+    class LoggerWrapper {
+        +Debug(string s): void
+        +Error(string s): void
+        +Info(string s): void
+        +Warn(string s): void
+        +Fatal(string s): void
+    }
+
+    class LoggerFactory {
+        +GetLogger(): ILoggerWrapper
+    }
+
+    ILoggerWrapper <|.. LoggerWrapper
+    LoggerFactory "1" --> "1..*" LoggerWrapper
+```
+Logger factory method - a design pattern.   
 
 ![]()  
 TODO: Models how do they connect  
 
 ![]()  
 TODO: DAL
+
 ## Use cases
 ![](Protocol-pictures/Use-case.png)  
 Use-case diagram for all functionalities  
