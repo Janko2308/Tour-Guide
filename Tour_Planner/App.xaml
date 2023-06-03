@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:Tour_Planner"
              Startup="Application_Startup">
     <Application.Resources>
-         
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ThemesV2/RedBlackTheme.xaml"/>
+                <ResourceDictionary Source="ThemesV2/ControlColours.xaml"/>
+                <ResourceDictionary Source="ThemesV2/Controls.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
