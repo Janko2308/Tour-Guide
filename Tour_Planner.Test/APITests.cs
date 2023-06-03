@@ -13,7 +13,7 @@ using Tour_Planner.Model;
 using Tour_Planner.Model.Structs;
 
 namespace Tour_Planner.Test {
-    public class APITest {
+    public class APITests {
         [SetUp]
         public void Setup() {
         }

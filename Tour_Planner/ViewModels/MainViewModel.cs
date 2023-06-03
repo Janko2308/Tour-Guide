@@ -230,18 +230,6 @@ namespace Tour_Planner.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public object ConvertTimeToFormattedString(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
-            if (value is TimeSpan timeSpan) {
-                string days = timeSpan.Days.ToString("00");
-                string hours = timeSpan.Hours.ToString("00");
-                string minutes = timeSpan.Minutes.ToString("00");
-                string seconds = timeSpan.Seconds.ToString("00");
-
-                return $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds";
-            }
-
-            return string.Empty;
-        }
 
         private void UpdateTourLogs() {
             if (selectedTour != null) {
