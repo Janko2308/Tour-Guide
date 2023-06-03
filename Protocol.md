@@ -186,6 +186,9 @@ The unit tests are divided into 4 different categories: Database mocks, Enum, Mo
 ### Database mocks
 For the database mocks we decided to test simple functionalities like adding/removing or modifying an item in a mocked database/repository, to see whether the logic of DAL actually works as intended.
 
+### Logic
+In the logic tests we test for any logic used in the program, such as the BL's `isChildFriendly` function.
+
 ### Enum
 Checks whether classes `Model.Enums.Difficulty` and `Model.Enums.Transport` are parsed and read from correctly.
 
