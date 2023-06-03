@@ -13,8 +13,9 @@ namespace Tour_Planner.DAL {
         public DbSet<TourLogs> TourLogItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            string cp = ConfigurationManager.ConnectionStrings["PostgreSQLConnectionString"].ConnectionString;
-            
+            string cp = "Host=localhost;Database=tourplanner;Username=postgres;Password=changeme";
+
+
             optionsBuilder.UseNpgsql(cp);
         }
     }

@@ -63,5 +63,33 @@ namespace Tour_Planner.Test {
             // Assert
             Assert.That(difficultyShould, Is.EqualTo(difficultyValue));
         }
+
+        // Try setting transport as car, and see if transport enum parse fails, as there is no definition for car
+        [Test]
+        public void ParseTransportFailTest() {
+            // Arrange
+            string invalidTransport = "car";
+
+            // Act
+            var parsedTransport = Enum.TryParse<Model.Enums.Transport>(invalidTransport, out var result);
+
+            // Assert
+            Assert.IsFalse(parsedTransport);
+            Assert.AreEqual(default(Model.Enums.Transport), result);
+        }
+
+        // Try setting difficulty as hell, and see if difficulty enum parse fails, as there is no definition for hell
+        [Test]
+        public void ParseDifficultyFailTest() {
+            // Arrange
+            string invalidDifficulty = "hell";
+
+            // Act
+            var parsedDifficulty = Enum.TryParse<Model.Enums.Difficulty>(invalidDifficulty, out var result);
+
+            // Assert
+            Assert.IsFalse(parsedDifficulty);
+            Assert.AreEqual(default(Model.Enums.Difficulty), result);
+        }
     }
 }

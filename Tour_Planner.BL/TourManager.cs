@@ -196,7 +196,7 @@ namespace Tour_Planner.BL {
             fileopener.Start();
         }
 
-        private bool isChildFriendly(ObservableCollection<TourLogs> tls) {
+        public bool isChildFriendly(ObservableCollection<TourLogs> tls) {
             int items = tls.Count;
             int rating = 0;
             int difficulty = 0;
