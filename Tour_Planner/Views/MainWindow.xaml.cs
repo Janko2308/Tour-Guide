@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControlzEx.Theming;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -25,6 +26,20 @@ namespace Tour_Planner.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private void SwitchTheme_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+            string theme = menuItem.Header.ToString();
+
+            if (theme == "Light")
+            {
+                ThemeManager.Current.ChangeTheme(this, "Light.Blue");
+            }
+            else if (theme == "Dark")
+            {
+                ThemeManager.Current.ChangeTheme(this, "Dark.Blue");
+            }
         }
     }
 }

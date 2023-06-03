@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Define your dark theme styles and resources here -->
+    <SolidColorBrush x:Key="BackgroundColor" Color="#000000" />
+    <SolidColorBrush x:Key="ForegroundColor" Color="#FFFFFF" />
+    <!-- Other styles and resources -->
+</ResourceDictionary>

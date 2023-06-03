@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_Planner.Views"
+        xmlns:controlzEx="clr-namespace:ControlzEx.Native;assembly=ControlzEx"
         mc:Ignorable="d"
         Title="Tour Planner" Height="450" Width="800">
     <Window.Resources>
@@ -31,7 +32,10 @@
                 </MenuItem>
                 <MenuItem Header="Tour report of current tour" Command="{Binding Path=ExecuteCommandGenerateReportSpecificTour}"/>
                 <MenuItem Header="Summarize report" Command="{Binding Path=ExecuteCommandGenerateReportAllTours}"/>
-                <MenuItem Header="Help" />
+                <MenuItem Header="Change Theme">
+                    <MenuItem Header="Light" Click="SwitchTheme_Click" />
+                    <MenuItem Header="Dark" Click="SwitchTheme_Click" />
+                </MenuItem>
             </Menu>
             <local:AddSearchBar x:Name="AddSearchBar"/>
         </DockPanel>
