@@ -128,8 +128,16 @@ Data Access Layer uses the `AppConfig` config file to get a connection string fo
 ![](Protocol-pictures/Use-case.png)  
 Use-case diagram for all functionalities  
 
-![]()  
-TODO: Sequence diagram for creating a tour
+```mermaid
+sequenceDiagram
+   participant BL as Business Layer
+   participant MQ as MapQuest API
+   
+   BL -)+ MQ: send from, to and transport method
+   MQ -->>- BL: return distance, estimated time and a map
+   
+```
+Sequence diagram for fetching computed values from MapQuestAPI.
 
 ## User Experience - Wireframes and final design
 ### Wireframes
