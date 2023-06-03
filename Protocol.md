@@ -199,7 +199,7 @@ Checks whether models are created correctly and that their assigned values can b
 This test file checks whether a map is being created thanks to `MapQuestAPI`, asserting the returning struct `Model.Structs.TourCreation`. It checks also a situation once the API fails.
 
 ## Unique feature
-For our unique feature we have decided to implement a dark mode functionality to allow for better user experience overall. The library used for that is called `WPFDarkTheme` and is available as an open-source software add-on on github (https://github.com/AngryCarrot789/WPFDarkTheme).
+For our unique feature we have decided to implement a dark mode with a functionality to change themes to allow for better user experience overall. The library used for that is called `WPFDarkTheme` and is available as an open-source software add-on on github (https://github.com/AngryCarrot789/WPFDarkTheme).
 
 ## Tracked time
 Overall we spent around 10h weekly since the half of March, which brings the total project tracked time to around 120 hours.  
