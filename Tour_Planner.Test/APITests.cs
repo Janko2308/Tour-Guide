@@ -23,7 +23,7 @@ namespace Tour_Planner.Test {
 
         // Assess whether MapQuestAPI works as it should
         [Test]
-        public async Task MapQuestAPITest() {
+        public void MapQuestAPITest() {
             // Arrange
             TourCreation tc = new TourCreation();
 
@@ -47,7 +47,31 @@ namespace Tour_Planner.Test {
             tc = CreateMap("adgssssssss", "712 7 78dbcxm", Model.Enums.Transport.shortest);
 
             // Assert
-            Assert.IsTrue(tc.Distance == 0 && tc.EstimatedTime == new TimeSpan(0,0,0) && tc.Picture == null);
+            Assert.IsTrue(tc.Distance == 0 && tc.EstimatedTime == new TimeSpan(0, 0, 0) && tc.Picture == null);
+        }
+
+        [Test]
+        public void MapQuestAPIFromAtoA() {
+            // Arrange
+            TourCreation tc = new TourCreation();
+
+            // Act
+            tc = CreateMap("Vienna", "Vienna", Model.Enums.Transport.pedestrian);
+
+            // Assert
+            Assert.IsTrue(tc.Distance == 0 && tc.EstimatedTime == new TimeSpan(0, 0, 0) && tc.Picture != null);
+        }
+
+        [Test]
+        public void MapQuestAPIAbsurdRoute() {
+            // Arrange
+            TourCreation tc = new TourCreation();
+
+            // Act
+            tc = CreateMap("Vienna", "New York", Model.Enums.Transport.pedestrian);
+
+            // Assert
+            Assert.IsTrue(tc.Distance == 0 && tc.EstimatedTime == new TimeSpan(0, 0, 0) && tc.Picture == null);
         }
 
         public TourCreation CreateMap(string from, string to, Model.Enums.Transport transportType) {
@@ -64,7 +88,7 @@ namespace Tour_Planner.Test {
 
             if (rootNode["route"]["routeError"] != null) {
                 res.Picture = null;
-                res.EstimatedTime = new TimeSpan(0,0,0);
+                res.EstimatedTime = new TimeSpan(0, 0, 0);
                 res.Distance = 0;
                 return res;
             }

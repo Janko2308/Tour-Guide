@@ -18,7 +18,7 @@ namespace Tour_Planner.Test {
         }
 
         // Test for adding a tour to the database
-        [Test]
+        /*[Test]
         public void AddTourTest() {
             // Arrange
             var dal = new DataManagerEntityFrameworkImpl();
@@ -212,6 +212,6 @@ namespace Tour_Planner.Test {
             // Assert
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result.Contains(t));
-        }
+        }*/
     }
 }

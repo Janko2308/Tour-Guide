@@ -47,6 +47,35 @@ namespace Tour_Planner.Test {
             Assert.That(result, Is.EqualTo(false));
         }
 
+        // Test child friendliness - nothing in the ObservableCollection
+        [Test]
+        public void ChildFriendlyTestEmptyObservableCollectionTest() {
+            // Arrange
+            ObservableCollection<TourLogs> tl = new ObservableCollection<TourLogs>();
+
+            // Act
+            var result = isChildFriendly(tl);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(false));
+        }
+
+        // Test child friendliness - absurd values in the ObservableCollection
+        [Test]
+        public void ChildFriendlyTestAbsurdValuesInObservableCollectionTest() {
+            // Arrange
+            ObservableCollection<TourLogs> tl = new ObservableCollection<TourLogs>();
+            tl.Add(new TourLogs() { Difficulty = Model.Enums.Difficulty.None, TotalTime = new TimeSpan(1, 0, 0), Rating = 4 });
+            tl.Add(new TourLogs() { Difficulty = Model.Enums.Difficulty.Easy, TotalTime = new TimeSpan(9, 15, 32), Rating = 11 });
+            tl.Add(new TourLogs() { Difficulty = Model.Enums.Difficulty.Medium, TotalTime = new TimeSpan(4, 30, 0), Rating = -1 });
+
+            // Act
+            var result = isChildFriendly(tl);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(false));
+        }
+
         public bool isChildFriendly(ObservableCollection<TourLogs> tls) {
             int items = tls.Count;
             int rating = 0;
