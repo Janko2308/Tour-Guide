@@ -22,20 +22,20 @@ namespace Tour_Planner.BL {
         private IDataManager DataManager;
         private MapCreator MapCreator = new();
         private readonly ILoggerWrapper logger = LoggerFactory.GetLogger();
+        public event EventHandler? Saved;
 
         public TourManager(IDataManager dataManager) {
             this.DataManager = dataManager;
         }
 
-        public void AddTour(TourItem t) {
+        public async Task AddTour(TourItem t) {
             logger.Info("Beginning to add a tour...");
-            MapCreator.CreateMap(t.From, t.To, t.TransportType).ContinueWith(res => {
-                t.Distance = res.Result.Distance;
-                t.EstimatedTime = res.Result.EstimatedTime;
-                t.TourInfo = res.Result.Picture;
-                DataManager.AddTour(t);
-                logger.Info("Tour added");
-            });
+            var tourcreation = await MapCreator.CreateMap(t.From, t.To, t.TransportType);
+            t.Distance = tourcreation.Distance;
+            t.EstimatedTime = tourcreation.EstimatedTime;
+            t.TourInfo = tourcreation.Picture;
+            DataManager.AddTour(t);
+            logger.Info("Tour added");
         }
 
 
@@ -56,14 +56,14 @@ namespace Tour_Planner.BL {
             logger.Info("Tour deleted successfully");
         }
 
-        public void AddTourLog(TourLogs tl) {
+        public async Task AddTourLog(TourLogs tl) {
             logger.Info($"Beginning to add tour log for tour with id {tl.TourId}");
             tl.DateTime = tl.DateTime.ToUniversalTime();
             DataManager.AddTourLog(tl);
             logger.Info($"Tour log added successfully");
         }
 
-        public void EditTourLog(TourLogs tl) {
+        public async Task EditTourLog(TourLogs tl) {
             logger.Info($"Beginning to edit tour log with id {tl.Id}");
             if(tl.DateTime.Kind != DateTimeKind.Utc) {
                 tl.DateTime = tl.DateTime.ToUniversalTime();
@@ -72,7 +72,7 @@ namespace Tour_Planner.BL {
             logger.Info("Tour log edited successfully");
         }
 
-        public void DeleteTourLog(TourLogs tl) {
+        public async Task DeleteTourLog(TourLogs tl) {
             logger.Info($"Beginning to delete tour log with id {tl.Id}");
             DataManager.DeleteTourLog(tl);
             logger.Info("Tour log deleted successfully");
@@ -260,7 +260,8 @@ namespace Tour_Planner.BL {
                 // if item t not found in allItems proceed with DataManager.AddTour(t)
                 if (!allItems.Any(x => x.Name == t.Name)) {
                     logger.Info($"Importing tour {t.Name}");
-                    AddTour(t);
+                    //AddTour(t);
+                    AddTour(t).ContinueWith(task => Saved?.Invoke(this, EventArgs.Empty));
                 } else {
                     logger.Info($"Omitted importing existing tour item! ({t.Name})");
                 }

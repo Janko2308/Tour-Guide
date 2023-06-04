@@ -16,7 +16,9 @@ using Org.BouncyCastle.Crypto;
 using Tour_Planner.BL;
 using Tour_Planner.Model;
 using Microsoft.Win32;
+using log4net;
 using System.Runtime.ExceptionServices;
+
 
 namespace Tour_Planner.ViewModels
 {
@@ -25,14 +27,34 @@ namespace Tour_Planner.ViewModels
         private AddNewTourViewModel addNewTourVM;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public EventHandler? DbChanged;
         public EventHandler? tourChanged;
 
+
         private TourItem selectedTour;
+        private ObservableCollection<TourItem> tours;
         private ObservableCollection<TourItem> filteredTours;
         private ObservableCollection<TourItem> allTours;
 
-        public ObservableCollection<TourItem> Tours { get; set; }
+        public ObservableCollection<TourItem> Tours { 
+            get => tours; 
+            set {
+                tours = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tours)));
+            } 
+        }
+
         public ObservableCollection<TourLogs> AllTourLogs { get; set; }
+
+        private ObservableCollection<TourLogs> tourLogs;
+        public ObservableCollection<TourLogs> TourLogs {
+            get => tourLogs;
+            set {
+                tourLogs = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TourLogs)));
+            }
+        }
 
         public string filename;
         
@@ -57,7 +79,7 @@ namespace Tour_Planner.ViewModels
             }
         }
 
-        private ObservableCollection<TourLogs> tourLogs;
+        
         public ObservableCollection<TourLogs> TourLogsOfSelectedTour {
             get => tourLogs;
             set {
@@ -100,14 +122,37 @@ namespace Tour_Planner.ViewModels
             this.selectedTourLog = this.TourLogsOfSelectedTour.FirstOrDefault();
 
 
-            ExecuteCommandOpenNewTour = new RelayCommand(param => new Views.AddNewTour().ShowDialog());
+            ExecuteCommandOpenNewTour = new RelayCommand(param => {
+                var dialog = new Views.AddNewTour();
+                ((AddNewTourViewModel)dialog.DataContext).Saved += (sender, args) => this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+                dialog.ShowDialog();
+            });
             
             ExecuteCommandOpenNewTourLog = new RelayCommand(param => {
                 try {
                     if (selectedTour == null) {
                         MessageBox.Show("Please select a tour first");
                     } else {
-                        new Views.AddNewTourLog(selectedTour.Id).ShowDialog();
+                        var dialog = new Views.AddNewTourLog(selectedTour.Id);
+                        ((AddNewTourLogViewModel)dialog.DataContext).Saved += (sender, args) => {
+                            // Get the updated tour logs from the business logic layer
+                            AllTourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+
+                            // Filter the updated tour logs for the selected tour
+                            var filteredLogs = AllTourLogs.Where(log => log.TourId == selectedTour.Id);
+
+                            // Update the TourLogs collection on the UI thread using Dispatcher
+                            Application.Current.Dispatcher.Invoke(() => {
+                                this.TourLogs.Clear();
+                                foreach (var log in filteredLogs)
+                                {
+                                    this.TourLogs.Add(log);
+                                }
+                            });
+
+                            selectedTourLog = TourLogs.FirstOrDefault();
+                        };
+                        dialog.ShowDialog();
                     }
                 }
                 catch(Exception e) {
@@ -120,7 +165,10 @@ namespace Tour_Planner.ViewModels
                     if (selectedTour == null) {
                         MessageBox.Show("Please select a tour to edit");
                     } else {
-                        new Views.AddNewTour(selectedTour).ShowDialog();
+                        TourItem t = selectedTour;
+                        var dialog = new Views.AddNewTour(t);
+                        ((AddNewTourViewModel)dialog.DataContext).Saved += (sender, args) => this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
+                        dialog.ShowDialog();
                     }
                 }
                 catch(Exception e) {
@@ -133,7 +181,27 @@ namespace Tour_Planner.ViewModels
                     if (selectedTourLog == null) {
                         MessageBox.Show("No tour log selected!");
                     } else {
-                        new Views.AddNewTourLog(SelectedTourLog).ShowDialog();
+                        TourLogs t = new TourLogs(selectedTourLog);
+                        var dialog = new Views.AddNewTourLog(t);
+                        ((AddNewTourLogViewModel)dialog.DataContext).Saved += (sender, args) => {
+                            // Get the updated tour logs from the business logic layer
+                            AllTourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+
+                            // Filter the updated tour logs for the selected tour
+                            var filteredLogs = AllTourLogs.Where(log => log.TourId == selectedTour.Id);
+
+                            // Update the TourLogs collection on the UI thread using Dispatcher
+                            Application.Current.Dispatcher.Invoke(() => {
+                                this.TourLogs.Clear();
+                                foreach (var log in filteredLogs)
+                                {
+                                    this.TourLogs.Add(log);
+                                }
+                            });
+
+                            selectedTourLog = TourLogs.FirstOrDefault();
+                        };
+                        dialog.ShowDialog();
                     }
                 }
                 catch (Exception e) {
@@ -154,6 +222,7 @@ namespace Tour_Planner.ViewModels
                         bl.DeleteTour(SelectedTour);
                         SelectedTour = Tours.FirstOrDefault();
                     }
+                    Tours = new ObservableCollection<TourItem>(bl.GetTours());
                 }
                 catch (Exception e) {
                     Console.WriteLine(e.Message);
@@ -171,7 +240,13 @@ namespace Tour_Planner.ViewModels
 
                     if (yesOrNo == MessageBoxResult.Yes) {
                         bl.DeleteTourLog(SelectedTourLog);
-                        SelectedTourLog = AllTourLogs.FirstOrDefault();
+                        this.AllTourLogs.Clear();
+                        this.TourLogs.Clear();
+                        this.AllTourLogs = new ObservableCollection<TourLogs>(bl.GetTourLogs());
+                        foreach (var log in AllTourLogs.Where(log => log.TourId == selectedTour.Id)) {
+                            this.TourLogs.Add(log);
+                        }
+                        SelectedTourLog = TourLogs.FirstOrDefault();
                     }
                 }
                 catch (Exception e) {
@@ -218,6 +293,7 @@ namespace Tour_Planner.ViewModels
                     if (openFileDialog.ShowDialog() == true) {
                         string selectedFile = openFileDialog.FileName;
                         bl.ImportToursFromCSV(selectedFile);
+                        bl.Saved += (sender, args) => this.Tours = new ObservableCollection<TourItem>(bl.GetTours());
                         MessageBox.Show("Tours added successfully!");
                     }
                 }

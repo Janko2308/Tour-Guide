@@ -12,17 +12,7 @@
         </Style>
     </Window.Resources>
 
-    <DockPanel>
-        <DockPanel DockPanel.Dock="Top">
-            <Border
-               BorderThickness="5"  
-               BorderBrush="Green"  
-               CornerRadius="10"  
-               Background="LightGray"  
-               HorizontalAlignment="Left"  
-               VerticalAlignment="Top"  
-               />
-        </DockPanel>
+    <DockPanel Background="#474747">
         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
@@ -31,7 +21,14 @@
                 </MenuItem>
                 <MenuItem Header="Tour report of current tour" Command="{Binding Path=ExecuteCommandGenerateReportSpecificTour}"/>
                 <MenuItem Header="Summarize report" Command="{Binding Path=ExecuteCommandGenerateReportAllTours}"/>
-                <MenuItem Header="Help" />
+                <MenuItem Header="Change Theme">
+                    <MenuItem Header="Change Theme">
+                        <MenuItem Header="Red Black" Click="ChangeTheme" Uid="0" />
+                        <MenuItem Header="Deep Dark" Click="ChangeTheme" Uid="1" />
+                        <MenuItem Header="Soft Dark" Click="ChangeTheme" Uid="2" />
+                    </MenuItem>
+
+                </MenuItem>
             </Menu>
             <local:AddSearchBar x:Name="AddSearchBar"/>
         </DockPanel>

@@ -188,7 +188,6 @@ For the database mocks we decided to test simple functionalities like adding/rem
 
 ### Logic
 In the logic tests we test for any logic used in the program, such as the BL's `isChildFriendly` function.
-
 ### Enum
 Checks whether classes `Model.Enums.Difficulty` and `Model.Enums.Transport` are parsed and read from correctly.
 
