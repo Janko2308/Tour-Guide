@@ -18,7 +18,6 @@ namespace Tour_Planner.BL {
         
         public async Task<TourCreation> CreateMap(string from, string to, Transport transportType) {
             TourCreation res = new TourCreation();
-            // TODO: HIDE KEY IN CONFIG
             var key = ConfigurationManager.AppSettings["MapQuestKey"];
 
             var transportTypeString = transportType.ToString();
