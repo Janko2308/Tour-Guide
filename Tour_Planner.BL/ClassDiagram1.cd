@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tour_Planner.BL.LoggerFactory" Collapsed="true">
+    <Position X="9.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LoggerFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tour_Planner.BL.LoggerWrapper" Collapsed="true">
+    <Position X="12.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAcAAAAAAAAAAAAAAAAEAAAAAAEAEAAA=</HashCode>
+      <FileName>LoggerWrapper.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tour_Planner.BL.MapCreator" Collapsed="true">
+    <Position X="7" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>MapCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tour_Planner.BL.TourManager" Collapsed="true">
+    <Position X="4.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAABABAAAIMCAAAAAAIgACAAAAABAWAAQAAEAAA=</HashCode>
+      <FileName>TourManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Tour_Planner.BL.ILoggerWrapper" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAYAAAAAAAAAAAAAAAAEAAAAAAEAEAAA=</HashCode>
+      <FileName>ILoggerWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

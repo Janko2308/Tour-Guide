@@ -45,7 +45,6 @@
             <Button Grid.Column="0" Grid.Row="1" Content="_Add new tour" Width="100" Command="{Binding Path=ExecuteCommandOpenNewTour}"/>
             <TabControl>
                 <TabItem Header="Tours">
-                    <!-- TODO: OnPropertyChanged -->
                     <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=Tours}" x:Name="ToursView" SelectionMode="Single" SelectedItem="{Binding Path=SelectedTour}">
                         <ListView.View>
                             <GridView>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tour_Planner.DAL.DataManagerEntityFrameworkImpl" Collapsed="true">
+    <Position X="4.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAABABAAAIMAAAAAAAAAAAAAAAABAGAAAAAAAAA=</HashCode>
+      <FileName>DataManagerEntityFrameworkImpl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tour_Planner.DAL.TourDbContext" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAACAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>TourDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Tour_Planner.DAL.IDataManager" Collapsed="true">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABABAAAIMAAAAAAAAAAAAAAAABAGAAAAAAAAA=</HashCode>
+      <FileName>IDataManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

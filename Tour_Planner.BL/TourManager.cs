@@ -196,7 +196,7 @@ namespace Tour_Planner.BL {
             fileopener.Start();
         }
 
-        private bool isChildFriendly(ObservableCollection<TourLogs> tls) {
+        public bool isChildFriendly(ObservableCollection<TourLogs> tls) {
             int items = tls.Count;
             int rating = 0;
             int difficulty = 0;
@@ -240,12 +240,6 @@ namespace Tour_Planner.BL {
         public DateTime ConvertUTC(DateTime dt) {
             logger.Info("Converting UTC...");
             return TimeZoneInfo.ConvertTimeFromUtc(dt, TimeZoneInfo.Local);
-        }
-
-        // TODO: test function, no calls yet
-        public DateTime ConvertLocal(DateTime dt) {
-            logger.Info("Converting local...");
-            return TimeZoneInfo.ConvertTimeToUtc(dt, TimeZoneInfo.Local);
         }
 
         public void ImportToursFromCSV(string FilePath) {

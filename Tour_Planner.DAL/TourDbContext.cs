@@ -14,7 +14,8 @@ namespace Tour_Planner.DAL {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             string cp = ConfigurationManager.ConnectionStrings["PostgreSQLConnectionString"].ConnectionString;
-            
+
+
             optionsBuilder.UseNpgsql(cp);
         }
     }
